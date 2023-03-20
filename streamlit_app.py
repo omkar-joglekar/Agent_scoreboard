@@ -39,12 +39,12 @@ df2['Funded'] = df2['Funded'].astype(int)
 
 
 
-col1, col2 = st.columns(3)
+col1, col2, col3 = st.columns(3)
 
 with col1:
    st.header('Top EFS agents')
    st.dataframe(df)
 
-with col2:
+with col3:
    st.header('Top FDN Agents')
    st.dataframe(df2)
