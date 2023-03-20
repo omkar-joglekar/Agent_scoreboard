@@ -38,7 +38,7 @@ df2.columns = ["Agent Name", "Type", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
 
-col1, col2 = st.columns((2,2))
+col1, col2 = st.columns([3,2])
 
 with col1:
    st.header('Top EFS agents')
