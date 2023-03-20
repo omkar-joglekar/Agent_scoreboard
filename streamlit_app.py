@@ -43,8 +43,8 @@ col1, col2 = st.columns(2)
 
 with col1:
    st.header('Top EFS agents')
-   st.dataframe(df, use_container_width=False)
+   st.dataframe(df, use_container_width=True)
 
 with col2:
    st.header('Top FDN Agents')
-   st.dataframe(df2, use_container_width=False)
+   st.dataframe(df2, use_container_width=True)
