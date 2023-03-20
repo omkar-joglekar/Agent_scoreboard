@@ -6,7 +6,7 @@ import pandas as pd
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
-@st.experimental_singleton
+@st.cache_resource
 def init_connection():
     return snowflake.connector.connect(
         **st.secrets["snowflake"], client_session_keep_alive=True
@@ -16,7 +16,7 @@ conn = init_connection()
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
-@st.experimental_singleton(ttl=600)
+@st.cache_resource(ttl=600)
 def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
@@ -37,17 +37,8 @@ df2.index = df2.index + 1
 df2.columns = ["Agent Name", "Type", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
-mystyle = '''
-    <style>
-        p {
-            text-align: justify;
-        }
-    </style>
-    '''
 
-st.markdown(mystyle, unsafe_allow_html=True)
-
-col1, col2 = st.columns((3,3))
+col1, col2 = st.columns((2,2))
 
 with col1:
    st.header('Top EFS agents')
