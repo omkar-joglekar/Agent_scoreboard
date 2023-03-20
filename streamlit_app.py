@@ -37,9 +37,17 @@ df2.index = df2.index + 1
 df2.columns = ["Agent Name", "Type", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
+mystyle = '''
+    <style>
+        p {
+            text-align: justify;
+        }
+    </style>
+    '''
 
+st.markdown(mystyle, unsafe_allow_html=True)
 
-col1, col2 = st.columns(2, gap="small")
+col1, col2 = st.columns(2)
 
 with col1:
    st.header('Top EFS agents')
