@@ -2,6 +2,7 @@
 
 import streamlit as st
 import snowflake.connector
+import pandas as pd
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -23,8 +24,12 @@ def run_query(query):
 
 rows = run_query("select top 10 march_agents, type, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' group by march_agents, type order by sum(sp_f) desc;")
 
+df=pd.DataFrame(rows)
+df.columns += 1
+df.index = df.index + 1
+df.columns = ["Agent Name", "Type", "Funded"]
+df['Funded'] = df['Funded'].astype(int)
+
 # Print results.
 st.header('Top EFS agents')
-
-for row in rows:
-    st.write(f"{row[0]}, Funded {row[2]} EFS loans")
+st.dataframe(df)
