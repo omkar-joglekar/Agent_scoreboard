@@ -22,19 +22,19 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
-rows = run_query("select top 10 march_agents, type, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' group by march_agents, type order by sum(sp_f) desc;")
+rows = run_query("select top 10 march_agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' group by march_agents, type order by sum(sp_f) desc;")
 df=pd.DataFrame(rows)
 df.columns += 1
 df.index = df.index + 1
-df.columns = ["Agent Name", "Type", "Funded"]
+df.columns = ["Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
 
-rows2 = run_query("select top 10 march_agents, type, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and sp_f <>0 group by march_agents, type order by sum(sp_f) desc;")
+rows2 = run_query("select top 10 march_agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and sp_f <>0 group by march_agents, type order by sum(sp_f) desc;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 df2.index = df2.index + 1
-df2.columns = ["Agent Name", "Type", "Funded"]
+df2.columns = ["Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
 
