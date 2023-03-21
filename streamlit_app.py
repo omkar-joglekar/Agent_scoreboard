@@ -63,8 +63,8 @@ df6['Funded'] = df6['Funded'].astype(int)
 col1, col2 = st.columns([4,4])
 
 with col1:
-   st.subheader('Total EFS Funded')
-   st.metric("", df3[0])
+   #st.subheader('Total EFS Funded')
+   st.metric("Total EFS Funded", df3[0])
    st.dataframe(df5)
 
 with col2:
@@ -75,8 +75,8 @@ with col2:
 col3, col4 = st.columns([4,4])
 
 with col3:
-   st.subheader('Total FDN Funded')
-   st.metric("", df4[0])
+   #st.subheader('Total FDN Funded')
+   st.metric("Total FDN Funded", df4[0])
    st.dataframe(df6)
 
 with col4:
