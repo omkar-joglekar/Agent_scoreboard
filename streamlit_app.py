@@ -46,7 +46,7 @@ rows4 = run_query("select sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN';")
 df4=pd.DataFrame(rows4)
 df4[0] = df4[0].astype(int)
 
-col1, col2 = st.columns([1,4])
+col1, col2 = st.columns([1,2])
 
 with col1:
    st.subheader('Total EFS Funded')
@@ -60,7 +60,7 @@ with col2:
    st.dataframe(df)
 
 
-col3, col4 = st.columns([1,4])
+col3, col4 = st.columns([1,2])
 
 with col3:
    st.subheader('Total FDN Funded')
