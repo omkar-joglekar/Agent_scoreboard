@@ -60,7 +60,7 @@ df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded"]
 df6['Funded'] = df6['Funded'].astype(int)
 
-st.title('March 2023')
+st.markdown("<h1 style='text-align: center; color: red;'>March 2023</h1>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([4,4])
 
