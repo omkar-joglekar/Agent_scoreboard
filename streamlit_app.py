@@ -89,7 +89,7 @@ html_str = f"""
 #st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
 st.markdown(html_str, unsafe_allow_html=True)
 
-col1, col2, col3, col4, col5, col6 = st.columns([6,1,2], gap="large")
+col1, col2, col3, col4, col5, col6 = st.columns(6, gap="large")
 
 with col1:
    #st.subheader('Total EFS Funded')
