@@ -89,7 +89,7 @@ html_str = f"""
 #st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
 st.markdown(html_str, unsafe_allow_html=True)
 
-col1, col2 = st.columns([4,4])
+col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 with col1:
    #st.subheader('Total EFS Funded')
@@ -101,8 +101,6 @@ with col2:
    st.dataframe(df)
 
 
-col3, col4 = st.columns([4,4])
-
 with col3:
    #st.subheader('Total FDN Funded')
    st.metric("Total FDN Funded", df4[0])
@@ -111,8 +109,6 @@ with col3:
 with col4:
    st.header('Top FDN Agents')
    st.dataframe(df2)
-  
-col5, col6 = st.columns([4,4])
 
 with col5:
    #st.subheader('Total FDN Funded')
