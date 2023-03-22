@@ -3,6 +3,12 @@
 import streamlit as st
 import snowflake.connector
 import pandas as pd
+from datetime import datetime
+  
+today = datetime.now()
+    
+month = today.strftime("%b")
+year = today.strftime("%-y")
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -60,7 +66,12 @@ df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded"]
 df6['Funded'] = df6['Funded'].astype(int)
 
-st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
+html_str = f"""
+<h1 style='text-align: center; color: white;'>{month} {year}</h1>
+"""
+
+#st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
+st.markdown(html_str, unsafe_allow_html=True)
 
 col1, col2 = st.columns([4,4])
 
