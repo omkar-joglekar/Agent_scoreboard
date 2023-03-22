@@ -65,7 +65,7 @@ df6.columns = ["Team", "Lead", "Funded"]
 df6['Funded'] = df6['Funded'].astype(int)
 
 rows7 = ("select top 10 march_agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS) group by march_agents order by sum(sp_f) desc;")
-df7=pd.DataFrame(rows)
+df7=pd.DataFrame(rows7)
 df7.columns += 1
 df7.index = df7.index + 1
 df7.columns = ["Agent Name", "Funded"]
