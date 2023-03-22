@@ -37,12 +37,12 @@ df2.index = df2.index + 1
 df2.columns = ["Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
-rows3 = run_query("select sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS';")
+rows3 = run_query("select sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
 df3=pd.DataFrame(rows3)
 #df3[0] = df3[0].astype(int)
 df3[0] = df3[0].replace('',',').astype(int)
 
-rows4 = run_query("select sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN';")
+rows4 = run_query("select sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
 df4=pd.DataFrame(rows4)
 df4[0] = df4[0].astype(int)
 
