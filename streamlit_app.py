@@ -7,8 +7,8 @@ from datetime import datetime
   
 today = datetime.now()
     
-month = today.strftime("%b")
-year = today.strftime("%-y")
+month = today.month
+year = today.year
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
