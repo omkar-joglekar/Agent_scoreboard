@@ -7,7 +7,7 @@ from datetime import datetime
   
 today = datetime.now()
     
-month = today.month
+month = today.strftime("%B")
 year = today.year
 
 # Initialize connection.
