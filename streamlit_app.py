@@ -85,9 +85,16 @@ df9[0] = df9[0].astype(int)
 html_str = f"""
 <h1 style='text-align: center; color: white;'>{month} {year}</h1>
 """
-
-#st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
 st.markdown(html_str, unsafe_allow_html=True)
+
+hide_dataframe_row_index = """
+            <style>
+            .row_heading.level0 {display:none}
+            .blank {display:none}
+            </style>
+            """
+
+
 
 tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
 
@@ -101,6 +108,8 @@ with tab1:
 
    with col2:
         st.header('Top EFS Agents')
+        # Inject CSS with Markdown
+        st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
         st.dataframe(df)
   
 with tab2:
