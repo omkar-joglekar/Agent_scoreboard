@@ -87,10 +87,10 @@ html_str = f"""
 """
 st.markdown(html_str, unsafe_allow_html=True)
 
-hide_dataframe_row_index = """
+hide_table_row_index = """
             <style>
-            .row_heading.level0 {display:none}
-            .blank {display:none}
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
             </style>
             """
 
@@ -109,8 +109,8 @@ with tab1:
    with col2:
         st.header('Top EFS Agents')
         # Inject CSS with Markdown
-        st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
-        st.dataframe(df)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.table(df)
   
 with tab2:
    col3, col4 = st.columns([4,4]) 
