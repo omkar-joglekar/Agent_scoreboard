@@ -99,11 +99,11 @@ hide_table_row_index = """
 tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
 
 with tab1:
+   st.metric("Total EFS Funded", df3[0])
    col1, col2 = st.columns([4,4])
 
    with col1:
    #st.subheader('Total EFS Funded')
-        st.metric("Total EFS Funded", df3[0])
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
