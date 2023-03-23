@@ -74,7 +74,7 @@ df7['Funded'] = df7['Funded'].astype(int)
 rows8 = run_query("select TEAM__GOOGLE_SHEETS, MARCH_AGENTS__GOOGLE_SHEETS, sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where TYPE__GOOGLE_SHEETS='DECLINEFUNDED' group by TEAM__GOOGLE_SHEETS, MARCH_AGENTS__GOOGLE_SHEETS order by 1;")
 df8=pd.DataFrame(rows8)
 df8.columns += 1
-df8.index = df8.index 
+df8.index = df8.index + 1
 df8.columns = ["Team", "Lead", "Funded"]
 df8['Funded'] = df8['Funded'].astype(int)
 
