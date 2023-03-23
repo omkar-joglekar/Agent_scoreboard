@@ -104,7 +104,8 @@ with tab1:
    with col1:
    #st.subheader('Total EFS Funded')
         st.metric("Total EFS Funded", df3[0])
-        st.dataframe(df5)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.table(df5)
 
    with col2:
         st.header('Top EFS Agents')
@@ -118,11 +119,13 @@ with tab2:
    with col3:
    #st.subheader('Total FDN Funded')
         st.metric("Total FDN Funded", df4[0])
-        st.dataframe(df6)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.table(df6)
 
    with col4:
         st.header('Top FDN Agents')
-        st.dataframe(df2)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.table(df2)
 
 with tab3:
    col5, col6 = st.columns([4,4])  
