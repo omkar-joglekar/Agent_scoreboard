@@ -106,7 +106,7 @@ with tab1:
                 <style>
                 /*center metric label*/
                 [data-testid="stMetricLabel"] > div:nth-child(1) {
-                 justify-content: center;
+                 justify-content: right;
                   }
 
                  /*center metric value*/
