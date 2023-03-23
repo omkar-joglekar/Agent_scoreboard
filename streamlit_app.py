@@ -104,7 +104,7 @@ with tab1:
 
    with col1:
    #st.subheader('Total EFS Funded')
-        st.metric("Total EFS Funded", df3[0])
+        st.write(df3)
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
