@@ -133,8 +133,10 @@ with tab3:
    with col5:
    #st.subheader('Total FDN Funded')
           st.metric("Total Decline Funded", df9[0])
-          st.dataframe(df8)
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.table(df8)
 
    with col6:
           st.header('Top Decline Agents')
-          st.dataframe(df7)
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.table(df7)
