@@ -118,11 +118,11 @@ with tab2:
 with tab3:
    col5, col6 = st.columns([4,4])  
   
-    with col5:
+   with col5:
    #st.subheader('Total FDN Funded')
           st.metric("Total Decline Funded", df9[0])
           st.dataframe(df8)
 
-    with col6:
+   with col6:
           st.header('Top Decline Agents')
           st.dataframe(df7)
