@@ -89,6 +89,9 @@ html_str = f"""
 #st.markdown("<h1 style='text-align: center; color: white;'>March 2023</h1>", unsafe_allow_html=True)
 st.markdown(html_str, unsafe_allow_html=True)
 
+tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
+
+with tab1:
 col1, col2 = st.columns([4,4])
 
 with col1:
@@ -100,6 +103,7 @@ with col2:
    st.header('Top EFS Agents')
    st.dataframe(df)
   
+with tab2:
 col3, col4 = st.columns([4,4]) 
 
 with col3:
@@ -111,6 +115,7 @@ with col4:
    st.header('Top FDN Agents')
    st.dataframe(df2)
 
+with tab3:
 col5, col6 = st.columns([4,4])  
   
 with col5:
