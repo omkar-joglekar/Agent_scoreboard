@@ -103,7 +103,7 @@ with tab1:
 
    with col2:
         st.header('Top EFS Agents')
-        st.dataframe(df)
+        st.dataframe(df.style.hide(axis='index'))
   
 with tab2:
    col3, col4 = st.columns([4,4]) 
