@@ -92,37 +92,37 @@ st.markdown(html_str, unsafe_allow_html=True)
 tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
 
 with tab1:
-col1, col2 = st.columns([4,4])
+   col1, col2 = st.columns([4,4])
 
-with col1:
+   with col1:
    #st.subheader('Total EFS Funded')
    st.metric("Total EFS Funded", df3[0])
    st.dataframe(df5)
 
-with col2:
+   with col2:
    st.header('Top EFS Agents')
    st.dataframe(df)
   
 with tab2:
-col3, col4 = st.columns([4,4]) 
+   col3, col4 = st.columns([4,4]) 
 
-with col3:
+   with col3:
    #st.subheader('Total FDN Funded')
    st.metric("Total FDN Funded", df4[0])
    st.dataframe(df6)
 
-with col4:
+   with col4:
    st.header('Top FDN Agents')
    st.dataframe(df2)
 
 with tab3:
-col5, col6 = st.columns([4,4])  
+   col5, col6 = st.columns([4,4])  
   
-with col5:
+   with col5:
    #st.subheader('Total FDN Funded')
    st.metric("Total Decline Funded", df9[0])
    st.dataframe(df8)
 
-with col6:
+   with col6:
    st.header('Top Decline Agents')
    st.dataframe(df7)
