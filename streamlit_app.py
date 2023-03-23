@@ -94,21 +94,6 @@ hide_table_row_index = """
             </style>
             """
 
-st.markdown('''
-<style>
-/*center metric label*/
-[data-testid="stMetricLabel"] > div:nth-child(1) {
-    justify-content: center;
-}
-
-/*center metric value*/
-[data-testid="stMetricValue"] > div:nth-child(1) {
-    justify-content: center;
-}
-</style>
-''', unsafe_allow_html=True)
-
-
 tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
 
 with tab1:
@@ -117,6 +102,19 @@ with tab1:
 
    with col1:
    #st.subheader('Total EFS Funded')
+        st.markdown('''
+                <style>
+                /*center metric label*/
+                [data-testid="stMetricLabel"] > div:nth-child(1) {
+                 justify-content: center;
+                  }
+
+                 /*center metric value*/
+                [data-testid="stMetricValue"] > div:nth-child(1) {
+                  justify-content: center;
+                }
+              </style>
+        ''', unsafe_allow_html=True)
         st.metric("Total EFS Funded",df3[0])
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
