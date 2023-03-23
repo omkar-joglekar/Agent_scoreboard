@@ -42,11 +42,11 @@ df2.index = df2.index + 1
 df2.columns = ["Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
-rows3 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where type='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
+rows3 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where TYPE__GOOGLE_SHEETS='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
 df3=pd.DataFrame(rows3)
 df3[0] = df3[0].astype(int)
 
-rows4 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
+rows4 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where TYPE__GOOGLE_SHEETS='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
 df4=pd.DataFrame(rows4)
 df4[0] = df4[0].astype(int)
 
@@ -78,7 +78,7 @@ df8.index = df8.index + 1
 df8.columns = ["Team", "Lead", "Funded"]
 df8['Funded'] = df8['Funded'].astype(int)
 
-rows9 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where type='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
+rows9 = run_query("select sum(SP_F__GOOGLE_SHEETS) from TEAMLEADS_MAR2023 where TYPE__GOOGLE_SHEETS='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE__GOOGLE_SHEETS);")
 df9=pd.DataFrame(rows9)
 df9[0] = df9[0].astype(int)
 
