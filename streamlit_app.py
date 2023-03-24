@@ -110,12 +110,12 @@ html_str = f"""
 """
 st.markdown(html_str, unsafe_allow_html=True)
 
-#hide_table_row_index = """
- #           <style>
-  #          thead tr th:first-child {display:none}
-  #          tbody th {display:none}
-  #          </style>
-  #          """
+hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+           </style>
+            """
 
 tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
 
@@ -127,7 +127,7 @@ with tab1:
         st.subheader('Total EFS Funded')
         
         st.metric("label3",df3[0], label_visibility="collapsed")
-        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
    with col2:
@@ -142,7 +142,7 @@ with tab2:
    with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", df4['Total FDN Funded'], label_visibility="collapsed")
-        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
    with col4:
