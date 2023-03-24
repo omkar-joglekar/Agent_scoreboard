@@ -113,19 +113,19 @@ st.markdown(html_str, unsafe_allow_html=True)
 
 
 tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
-hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-           </style>
-            """
+
 with tab1:
    
    col1, col2 = st.columns([4,4])
 
    with col1:
         st.subheader('Total EFS Funded')
-        
+        hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+           </style>
+            """
         st.metric("label3",df3[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
@@ -142,6 +142,12 @@ with tab2:
    with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", df4['Total FDN Funded'], label_visibility="collapsed")
+        hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+           </style>
+            """
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
