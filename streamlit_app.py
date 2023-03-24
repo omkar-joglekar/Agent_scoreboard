@@ -166,9 +166,9 @@ class CountdownTimer:
             current_time = dt.datetime.now(TIMEZONE).strftime("%H:%M:%S")
             
             next_refresh_time = None
-            for time in REFRESH_TIMES:
-                if current_time < time:
-                    next_refresh_time = time
+            for time1 in REFRESH_TIMES:
+                if current_time < time1:
+                    next_refresh_time = time1
                     break
                 
             if next_refresh_time is None:
