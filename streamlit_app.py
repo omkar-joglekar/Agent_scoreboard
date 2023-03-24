@@ -19,13 +19,13 @@ timezone = pytz.timezone('US/Pacific')
 refresh_time = dt.time(hour=8, tzinfo=timezone)
 
 # get the current time in Pacific Time
-now = datetime.datetime.now(tz=timezone)
+now = dt.datetime.now(tz=timezone)
 
 # calculate the time left until the next refresh
 if now.time() >= refresh_time:
-    next_refresh = datetime.datetime.combine(now.date() + datetime.timedelta(days=1), refresh_time)
+    next_refresh = dt.datetime.combine(now.date() + dt.timedelta(days=1), refresh_time)
 else:
-    next_refresh = datetime.datetime.combine(now.date(), refresh_time)
+    next_refresh = dt.datetime.combine(now.date(), refresh_time)
 
 time_left = next_refresh - now
 
