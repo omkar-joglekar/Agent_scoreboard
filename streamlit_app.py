@@ -104,7 +104,7 @@ with tab1:
    with col1:
         st.subheader('Total EFS Funded')
         #df3['Dollar Amount']=df['Dollar Amount'].apply('{:,}'.format)
-        st.metric("",df3[0], label_visibility="collapsed")
+        st.metric("label3",df3[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
@@ -119,7 +119,7 @@ with tab2:
 
    with col3:
         st.subheader('Total FDN Funded')
-        st.metric("", df4['Total FDN Funded'], label_visibility="collapsed")
+        st.metric("label2", df4['Total FDN Funded'], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
@@ -133,7 +133,7 @@ with tab3:
   
    with col5:
           st.subheader('Total CSR Decline Funded')
-          st.metric(df9[0], label_visibility="collapsed")
+          st.metric("label1",df9[0], label_visibility="collapsed")
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df8)
 
