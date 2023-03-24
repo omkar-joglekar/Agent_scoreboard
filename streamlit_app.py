@@ -24,7 +24,7 @@ now = dt.datetime.now(us_west_coast_tz)
 # Calculate the next refresh time
 next_refresh_hour = (now.hour // refresh_interval + 1) * refresh_interval
 next_refresh_time = now.replace(hour=next_refresh_hour, minute=0, second=0, microsecond=0)
-next_refresh_time = us_west_coast_tz.localize(next_refresh_time)
+next_refresh_time = us_west_coast_tz.localize(next_refresh_time, is_dst=None)
 time_until_refresh = next_refresh_time - now
 
 # Format the countdown timer
