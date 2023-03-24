@@ -176,4 +176,4 @@ with tab3:
 #st.caption('_Updates every 2 hours_')
 
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
-st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
+st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time})")
