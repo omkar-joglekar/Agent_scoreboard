@@ -107,7 +107,7 @@ with tab1:
         st.table(df5)
 
    with col2:
-        st.header('Top EFS Agents')
+        st.subheader('Top EFS Agents')
         # Inject CSS with Markdown
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df)
@@ -122,7 +122,7 @@ with tab2:
         st.table(df6)
 
    with col4:
-        st.header('Top FDN Agents')
+        st.subheader('Top FDN Agents')
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df2)
 
@@ -136,6 +136,6 @@ with tab3:
           st.table(df8)
 
    with col6:
-          st.header('Top Decline Agents')
+          st.subheader('Top Decline Agents')
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df7)
