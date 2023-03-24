@@ -161,7 +161,7 @@ refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", 
 timezone = pytz.timezone('US/Pacific')
 
 def countdown_timer():
-   with st.empty():
+   
     current_time = dt.datetime.now(timezone).strftime("%H:%M:%S")
     
     next_refresh_time = None
@@ -183,6 +183,7 @@ def countdown_timer():
 
 remaining_time = countdown_timer()
 stop = False
+with st.empty():
 while not stop:
     st.write(remaining_time)
     remaining_time = countdown_timer()
