@@ -3,6 +3,7 @@
 import streamlit as st
 import snowflake.connector
 import pandas as pd
+import pytz
 import datetime as dt
 from datetime import datetime
   
@@ -15,7 +16,9 @@ year = today.year
 refresh_interval_hours = 2
 
 # get the current time
-now = dt.datetime.now()
+us_west_coast_tz = pytz.timezone('US/Pacific')
+now = dt.datetime.now(us_west_coast_tz)
+
 
 # calculate the next refresh time
 next_refresh = now + dt.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
