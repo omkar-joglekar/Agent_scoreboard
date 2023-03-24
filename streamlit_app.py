@@ -183,7 +183,7 @@ def countdown_timer():
   
 remaining_time = countdown_timer()
 while True:
-    #remaining_time = countdown_timer()
+    remaining_time = countdown_timer()
     if remaining_time == 0:
         break
     time.sleep(1)
