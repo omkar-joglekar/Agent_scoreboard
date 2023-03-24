@@ -96,7 +96,12 @@ html_str = f"""
 """
 st.markdown(html_str, unsafe_allow_html=True)
 
-
+hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+           </style>
+            """ 
 
 tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
 
@@ -106,12 +111,6 @@ with tab1:
 
    with col1:
         st.subheader('Total EFS Funded')
-        hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-           </style>
-            """
         st.metric("label3",df3[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
@@ -126,18 +125,11 @@ with tab2:
    with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", df4['Total FDN Funded'], label_visibility="collapsed")
-        hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-           </style>
-            """
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
    with col4:
         st.subheader('Top FDN Agents')
-        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df2)
 
 with tab3:
@@ -146,16 +138,13 @@ with tab3:
    with col5:
           st.subheader('Total CSR Decline Funded')
           st.metric("label1",df9[0], label_visibility="collapsed")
-          #st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df8)
 
    with col6:
           st.subheader('Top CSR Decline Agents')
-          #st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df7)
           
-#st.caption('_Updates every 2 hours_')
-
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 
