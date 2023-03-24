@@ -94,15 +94,15 @@ hide_table_row_index = """
             </style>
             """
 
-tab1, tab2, tab3 = st.tabs(["EFS", "FDN", "DECLINE FUNDED"])
+tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
 
 with tab1:
    
    col1, col2 = st.columns([4,4])
 
    with col1:
-   #st.subheader('Total EFS Funded')
-        st.metric("Total EFS Funded",df3[0])
+        st.subheader('Total EFS Funded')
+        st.metric("",df3[0])
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
@@ -116,8 +116,8 @@ with tab2:
    col3, col4 = st.columns([4,4]) 
 
    with col3:
-   #st.subheader('Total FDN Funded')
-        st.metric("Total FDN Funded", df4[0])
+        st.subheader('Total FDN Funded')
+        st.metric("", df4[0])
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
@@ -130,8 +130,8 @@ with tab3:
    col5, col6 = st.columns([4,4])  
   
    with col5:
-   #st.subheader('Total FDN Funded')
-          st.metric("Total Decline Funded", df9[0])
+          st.subheader('Total Decline Funded')
+          st.metric("", df9[0])
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df8)
 
