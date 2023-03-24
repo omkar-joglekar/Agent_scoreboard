@@ -15,21 +15,27 @@ year = today.year
 # set the timezone to Pacific Time
 timezone = pytz.timezone('US/Pacific')
 
-# set the refresh time to 8am Pacific Time
-refresh_time = dt.time(hour=8, tzinfo=timezone)
+# create a list of refresh times in 24-hour format
+refresh_times = [dt.time(hour=h, tzinfo=timezone) for h in [8, 10, 12, 14, 16, 18, 20, 22, 0, 2, 4, 6]]
 
 # get the current time in Pacific Time
 now = dt.datetime.now(tz=timezone)
 
-# calculate the time left until the next refresh
-if now.time() >= refresh_time:
-    next_refresh = dt.datetime.combine(now.date() + dt.timedelta(days=1), refresh_time)
-else:
-    next_refresh = dt.datetime.combine(now.date(), refresh_time)
+# find the next refresh time
+next_refresh = None
+for refresh_time in refresh_times:
+    if now.time() < refresh_time:
+        next_refresh = dt.datetime.combine(now.date(), refresh_time)
+        break
+
+if next_refresh is None:
+    next_refresh = dt.datetime.combine(now.date() + dt.timedelta(days=1), refresh_times[0])
 
 time_left = next_refresh - now
 
-
+# display the time left in a human-readable format
+hours_left, seconds_left = divmod(time_left.seconds, 3600)
+minutes_left = seconds_left // 60
 
 
 # Initialize connection.
@@ -167,5 +173,5 @@ with tab3:
 #st.caption('_Updates every 2 hours_')
 # Display the countdown timer in Streamlit
 # display the time left in a human-readable format
-st.write(f"Time left until next refresh: {time_left.seconds//3600} hours, {(time_left.seconds//60)%60} minutes")
+st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 
