@@ -130,12 +130,12 @@ with tab3:
    col5, col6 = st.columns([4,4])  
   
    with col5:
-          st.subheader('Total Decline Funded')
+          st.subheader('Total CSR Decline Funded')
           st.metric("", df9[0], label_visibility="collapsed")
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df8)
 
    with col6:
-          st.subheader('Top Decline Agents')
+          st.subheader('Top CSR Decline Agents')
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df7)
