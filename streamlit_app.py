@@ -36,8 +36,9 @@ def run_query(query):
 rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc;")
 df=pd.DataFrame(rows)
 df.columns += 1
+df['row_number'] = df.reset_index().index
 df.index = df.index + 1
-df.columns = ["Agent Name", "Funded"]
+df.columns = ["Rank","Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
 rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
@@ -115,8 +116,6 @@ with tab1:
 
    with col2:
         st.subheader('Top EFS Agents')
-        # Inject CSS with Markdown
-        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df)
   
 with tab2:
