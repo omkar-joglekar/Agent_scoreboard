@@ -13,23 +13,27 @@ month = today.strftime("%B")
 year = today.year
 
 refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
-timezone = pytz.timezone('US/Pacific')
+timezone = pytz.timezone('US/Pacific') # replace 'Your_Time_Zone' with your desired timezone
 
-current_time = dt.datetime.now(timezone).strftime("%H:%M")
-
-next_refresh_time = None
-for time in refresh_times:
-    if current_time < time:
-        next_refresh_time = time
-        break
+def countdown_timer():
+    current_time = dt.datetime.now(timezone).strftime("%H:%M:%S")
+    
+    next_refresh_time = None
+    for time in refresh_times:
+        if current_time < time:
+            next_refresh_time = time
+            break
+            
+    if next_refresh_time is None:
+        next_refresh_time = refresh_times[0] # if all refresh times have passed, the next refresh time will be the first one in the list
         
-if next_refresh_time is None:
-    next_refresh_time = refresh_times[0] # if all refresh times have passed, the next refresh time will be the first one in the list
-
-delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M")
-
-hours = delta.seconds // 3600
-minutes = (delta.seconds // 60) % 60
+    delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M:%S")
+    
+    hours = delta.seconds // 3600
+    minutes = (delta.seconds // 60) % 60
+    seconds = delta.seconds % 60
+    
+    
 
 
 # Initialize connection.
@@ -173,4 +177,12 @@ with tab3:
 #st.caption('_Updates every 2 hours_')
 
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
-st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
+#st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
+st.write(f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {timezone.zone})")
+    return delta.seconds
+
+while True:
+    remaining_time = countdown_timer()
+    if remaining_time == 0:
+        break
+    time.sleep(1)
