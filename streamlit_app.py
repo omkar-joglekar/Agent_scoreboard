@@ -149,7 +149,7 @@ with tab3:
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 
 REFRESH_TIMES = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
-TIMEZONE = pytz.timezone('Your_Time_Zone') # replace 'Your_Time_Zone' with your desired timezone
+TIMEZONE = pytz.timezone('US/Pacific') # replace 'Your_Time_Zone' with your desired timezone
 
 class CountdownTimer:
     def __init__(self):
