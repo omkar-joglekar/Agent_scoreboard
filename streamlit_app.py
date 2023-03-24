@@ -133,7 +133,7 @@ with tab3:
   
    with col5:
           st.subheader('Total CSR Decline Funded')
-          st.metric("", df9[0], label_visibility="collapsed")
+          st.metric(df9[0], label_visibility="collapsed")
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df8)
 
