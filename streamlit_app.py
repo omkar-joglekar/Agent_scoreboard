@@ -183,7 +183,7 @@ def countdown_timer():
 
 remaining_time = countdown_timer()
 stop = False
- with st.empty():
+with st.empty():
    while not stop:
     st.write(remaining_time)
     remaining_time = countdown_timer()
