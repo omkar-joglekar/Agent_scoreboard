@@ -139,3 +139,5 @@ with tab3:
           st.subheader('Top CSR Decline Agents')
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df7)
+          
+st.caption('_Updates every 2 hours_')
