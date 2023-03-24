@@ -110,15 +110,15 @@ html_str = f"""
 """
 st.markdown(html_str, unsafe_allow_html=True)
 
-hide_table_row_index = """
+
+
+tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
+    hide_table_row_index = """
             <style>
             thead tr th:first-child {display:none}
             tbody th {display:none}
            </style>
             """
-
-tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
-
 with tab1:
    
    col1, col2 = st.columns([4,4])
