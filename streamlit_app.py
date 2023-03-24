@@ -190,8 +190,13 @@ remaining_time = countdown_timer()
 stop = False
 with st.empty():
    while not stop:
+   st.write(remaining_time)
     remaining_time = countdown_timer()
-    st.write(remaining_time)
+    if remaining_time == "Next refresh in 00:00:00":
+        # Refresh the data
+        st.write("Refreshing the data...")
+        # Add your code to refresh the data here
+    time.sleep(1)
     
     # Check if the user has closed the Streamlit app
     stop = st.session_state.stop_countdown_timer
@@ -200,11 +205,4 @@ with st.empty():
     stop_button_key = str(uuid.uuid4())
     if st.button("Stop countdown timer", key=stop_button_key):
         st.session_state.stop_countdown_timer = True
-    time.sleep(1)
-    
-    # Refresh the app if it's time for a data refresh
-    if remaining_time == "Next refresh in 00:00:00":
-        st.write("Refreshing the data...")
-        # Add your code to refresh the data here
-    
     
