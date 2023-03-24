@@ -179,7 +179,7 @@ with tab3:
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 st.write(f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {timezone.zone})")
-    return delta.seconds
+return delta.seconds
 
 while True:
     remaining_time = countdown_timer()
