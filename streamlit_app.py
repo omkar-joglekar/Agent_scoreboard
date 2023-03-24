@@ -12,23 +12,24 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
-# Set the refresh interval
-refresh_interval = 2 # in hours
+# set the timezone to Pacific Time
+timezone = pytz.timezone('US/Pacific')
 
-# Calculate the next refresh time
-now = dt.datetime.now()
-next_refresh_hour = (now.hour // refresh_interval + 1) * refresh_interval
-next_refresh_time = now.replace(hour=next_refresh_hour, minute=0, second=0, microsecond=0)
-time_until_refresh = next_refresh_time - now
+# set the refresh time to 8am Pacific Time
+refresh_time = dt.time(hour=8, tzinfo=timezone)
 
-# Format the countdown timer
-total_seconds = int(time_until_refresh.total_seconds())
-hours, remainder = divmod(total_seconds, 3600)
-minutes, seconds = divmod(remainder, 60)
-countdown = f"{hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''}"
+# get the current time in Pacific Time
+now = datetime.datetime.now(tz=timezone)
 
-# Display the countdown timer in Streamlit
-st.write(f"Next refresh in {countdown}")
+# calculate the time left until the next refresh
+if now.time() >= refresh_time:
+    next_refresh = datetime.datetime.combine(now.date() + datetime.timedelta(days=1), refresh_time)
+else:
+    next_refresh = datetime.datetime.combine(now.date(), refresh_time)
+
+time_left = next_refresh - now
+
+
 
 
 # Initialize connection.
@@ -165,5 +166,6 @@ with tab3:
           
 #st.caption('_Updates every 2 hours_')
 # Display the countdown timer in Streamlit
-st.write(f"Next refresh in {countdown}")
+# display the time left in a human-readable format
+st.write(f"Time left until next refresh: {time_left.seconds//3600} hours, {(time_left.seconds//60)%60} minutes")
 
