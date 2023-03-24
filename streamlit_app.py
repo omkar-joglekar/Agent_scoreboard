@@ -12,19 +12,19 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
-# define the refresh interval in hours
-refresh_interval_hours = 2
+# Set the refresh interval
+refresh_interval = 2 # in hours
 
-# get the current time
-us_west_coast_tz = pytz.timezone('US/Pacific')
-now = dt.datetime.now(us_west_coast_tz)
+# Calculate the next refresh time
+now = dt.datetime.now()
+next_refresh_hour = (now.hour // refresh_interval + 1) * refresh_interval
+next_refresh_time = now.replace(hour=next_refresh_hour, minute=0, second=0, microsecond=0)
+time_until_refresh = next_refresh_time - now
 
-
-# calculate the next refresh time
-next_refresh = now + dt.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
-
-# calculate the time remaining until the next refresh
-time_remaining = next_refresh - now
+# Format the countdown timer
+hours, remainder = divmod(time_until_refresh.seconds, 3600)
+minutes, seconds = divmod(remainder, 60)
+countdown = f"{hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''}"
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -159,7 +159,5 @@ with tab3:
           st.table(df7)
           
 #st.caption('_Updates every 2 hours_')
-st.write("Next data refresh at:", next_refresh.strftime("%I:%M %p"))
-#st.write("Data will be refreshed in:", str(time_remaining))
-#st.write(time_remaining)
-#st.write(dt.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours))
+st.write(f"Next refresh in {countdown}")
+
