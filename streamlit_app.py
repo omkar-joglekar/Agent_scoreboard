@@ -158,7 +158,7 @@ with tab3:
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 
 refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
-timezone = pytz.timezone('US/Pacific') # replace 'Your_Time_Zone' with your desired timezone
+timezone = pytz.timezone('Your_Time_Zone') # replace 'Your_Time_Zone' with your desired timezone
 
 def countdown_timer():
     current_time = dt.datetime.now(timezone).strftime("%H:%M:%S")
@@ -178,12 +178,22 @@ def countdown_timer():
     minutes = (delta.seconds // 60) % 60
     seconds = delta.seconds % 60
     
-    st.write(f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {timezone.zone})")
-    return delta.seconds
-  
+    return f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time})"
+
 remaining_time = countdown_timer()
-while True:
+stop = False
+while not stop:
+    st.write(remaining_time)
     remaining_time = countdown_timer()
-    if remaining_time == 0:
-        break
-    time.sleep(1)
+    if remaining_time == "Next refresh in 00:00:00":
+        # Refresh the data
+        st.write("Refreshing the data...")
+        # Add your code to refresh the data here
+    st.experimental_sleep(1)
+    
+    # Check if the user has closed the Streamlit app
+    stop = st.session_state.stop_countdown_timer
+    
+    # Add a button to stop the countdown timer
+    #if st.button("Stop countdown timer"):
+    #   st.session_state.stop_countdown_timer = True
