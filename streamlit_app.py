@@ -3,8 +3,8 @@
 import streamlit as st
 import snowflake.connector
 import pandas as pd
-import datetime
-#from datetime import datetime
+import datetime as dt
+from datetime import datetime
   
 today = datetime.now()
     
@@ -15,7 +15,7 @@ year = today.year
 refresh_interval_hours = 2
 
 # get the current time
-now = datetime.datetime.now()
+now = dt.datetime.now()
 
 # calculate the next refresh time
 next_refresh = now + datetime.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
