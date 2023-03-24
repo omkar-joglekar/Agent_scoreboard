@@ -14,7 +14,7 @@ year = today.year
 refresh_interval_hours = 2
 
 # get the current time
-now = datetime.datetime.now()
+now = datetime.now()
 
 # calculate the next refresh time
 next_refresh = now + datetime.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
