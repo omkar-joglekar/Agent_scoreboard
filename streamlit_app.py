@@ -120,7 +120,7 @@ with tab2:
 
    with col3:
         st.subheader('Total FDN Funded')
-        st.metric("", df4[0], label_visibility="collapsed")
+        st.metric("", df4['Total FDN Funded'], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
