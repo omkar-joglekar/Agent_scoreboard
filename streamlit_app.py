@@ -50,7 +50,7 @@ rows4 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='FDN' AND
 df4=pd.DataFrame(rows4)
 df4.columns = ["Total FDN Funded"]
 df4['Total FDN Funded']=df4['Total FDN Funded'].apply('{:,}'.format)
-df4['Total FDN Funded'] = df4['Total FDN Funded'].astype(str)
+df4['Total FDN Funded'] = df4['Total FDN Funded'].astype("string")
 
 rows5 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENTS order by 1;")
 df5=pd.DataFrame(rows5)
