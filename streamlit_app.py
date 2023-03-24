@@ -149,58 +149,66 @@ with tab3:
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 
-REFRESH_TIMES = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
-TIMEZONE = pytz.timezone('US/Pacific') # replace 'Your_Time_Zone' with your desired timezone
+def countdown_timer():
+    target_times = ["08:00:00", "10:00:00", "12:00:00", "14:00:00", "16:00:00", "18:00:00", "20:00:00", "22:00:00", "00:00:00", "02:00:00", "04:00:00", "06:00:00", "08:00:00"]
+    timezone = "US/Pacific"
 
-class CountdownTimer:
-    def __init__(self):
-        self.remaining_time = ""
-        self.stop_thread = False
-        
-        # Start the countdown timer in a separate thread
-        self.thread = threading.Thread(target=self.run_timer)
-        self.thread.start()
-        
-    def run_timer(self):
-        while not self.stop_thread:
-            current_time = dt.datetime.now(TIMEZONE).strftime("%H:%M:%S")
-            
-            next_refresh_time = None
-            for time1 in REFRESH_TIMES:
-                if current_time < time1:
-                    next_refresh_time = time1
+    next_refresh_time = None
+    for i, target_time in enumerate(target_times):
+        target_datetime = dt.datetime.strptime(target_time, '%H:%M:%S').time()
+        target_datetime = dt.datetime.combine(dt.date.today(), target_datetime)
+        if i == 0:
+            if dt.datetime.now(dt.timezone(timezone)) > target_datetime:
+                target_datetime += dt.timedelta(days=1)
+        else:
+            if next_refresh_time < dt.datetime.now(dt.timezone(timezone)) <= target_datetime:
+                pass
+            elif dt.datetime.now(dt.timezone(timezone)) > target_datetime:
+                target_datetime += dt.timedelta(days=1)
+        if next_refresh_time is None or target_datetime < next_refresh_time:
+            next_refresh_time = target_datetime
+
+    while True:
+        remaining_time = next_refresh_time - dt.datetime.now(dt.timezone(timezone))
+        remaining_seconds = remaining_time.total_seconds()
+
+        if remaining_seconds < 0:
+            # Update next refresh time for the next cycle
+            for i, target_time in enumerate(target_times):
+                target_datetime = dt.datetime.strptime(target_time, '%H:%M:%S').time()
+                target_datetime = dt.datetime.combine(dt.date.today() + dt.timedelta(days=1), target_datetime)
+                if next_refresh_time < target_datetime:
+                    next_refresh_time = target_datetime
                     break
-                
-            if next_refresh_time is None:
-                next_refresh_time = REFRESH_TIMES[0] # if all refresh times have passed, the next refresh time will be the first one in the list
-                    
-            delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M:%S")
-            
-            hours = delta.seconds // 3600
-            minutes = (delta.seconds // 60) % 60
-            seconds = delta.seconds % 60
-            
-            self.remaining_time = f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {TIMEZONE.zone})"
-            
-            # Refresh the app if it's time for a data refresh
-            if self.remaining_time == "Next refresh in 00:00:00":
-                st.write("Refreshing the data...")
-                # Add your code to refresh the data here
-                
-            time.sleep(1)
-            
-    def stop(self):
-        self.stop_thread = True
-        self.thread.join()
+            remaining_seconds = (next_refresh_time - dt.datetime.now(dt.timezone(timezone))).total_seconds()
 
-# Initialize the countdown timer
-countdown_timer = CountdownTimer()
+        hours, remaining_seconds = divmod(remaining_seconds, 3600)
+        minutes, remaining_seconds = divmod(remaining_seconds, 60)
+        seconds = int(remaining_seconds)
 
-# Display the remaining time
-st.write(countdown_timer.remaining_time)
+        countdown_str = f'Next refresh in {int(hours):02d}:{int(minutes):02d}:{seconds:02d} ({timezone})'
 
-# Add a button to stop the countdown timer
-if st.button("Stop countdown timer"):
-    countdown_timer.stop()
+        # Update session state variable to keep track of the countdown timer
+        st.session_state.countdown_timer = countdown_str
+
+        # Update the displayed timer only when the timer changes
+        if st.session_state.countdown_timer != countdown_str:
+            st.write(countdown_str)
+
+        # Pause the loop for 1 second to allow other events to be processed by Streamlit
+        st.experimental_sleep(1)
+
+
+if 'countdown_timer' not in st.session_state:
+    # Start the countdown timer thread only once
+    st.session_state.countdown_timer = ''
+    thread = st.thread(run_countdown_timer)
+else:
+    # Update the displayed timer on every streamlit iteration
+    st.write(st.session_state.countdown_timer)
+
+if st.button('Stop countdown timer'):
+    # Stop the countdown timer thread
+    st.session_state.stop_countdown_timer = True
   
     
