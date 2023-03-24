@@ -45,7 +45,7 @@ rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 df2.index = df2.index + 1
-df2.insert(0, "Rank", df.index)
+df2.insert(0, "Rank", df2.index)
 df2.columns = ["Rank","Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
@@ -76,7 +76,8 @@ rows7 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where
 df7=pd.DataFrame(rows7)
 df7.columns += 1
 df7.index = df7.index + 1
-df7.columns = ["Agent Name", "Funded"]
+df7.insert(0, "Rank", df7.index)
+df7.columns = ["Rank","Agent Name", "Funded"]
 df7['Funded'] = df7['Funded'].astype(int)
 
 rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENTS order by 1;")
