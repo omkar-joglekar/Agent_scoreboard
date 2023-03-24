@@ -170,7 +170,7 @@ def countdown_timer():
     minutes = (delta.seconds // 60) % 60
     seconds = delta.seconds % 60
     
-    return f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time})"
+    return f"Next refresh in {hours:02d} hours :{minutes:02d} minutes :{seconds:02d} seconds"
 
 remaining_time = countdown_timer()
 stop = False
