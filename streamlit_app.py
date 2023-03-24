@@ -189,11 +189,11 @@ while not stop:
         # Refresh the data
         st.write("Refreshing the data...")
         # Add your code to refresh the data here
-    st.experimental_sleep(1)
+    time.sleep(1)
     
     # Check if the user has closed the Streamlit app
     stop = st.session_state.stop_countdown_timer
     
     # Add a button to stop the countdown timer
     #if st.button("Stop countdown timer"):
-    #   st.session_state.stop_countdown_timer = True
+    # st.session_state.stop_countdown_timer = True
