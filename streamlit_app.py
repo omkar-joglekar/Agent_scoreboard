@@ -158,7 +158,8 @@ with tab3:
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(df7)
           
-#st.caption('_Updates every 2 hours_')
-st.write("Next data refresh at:", next_refresh.strftime("%I:%M %p"))
+st.caption('_Updates every 2 hours_')
+#st.write("Next data refresh at:", next_refresh.strftime("%I:%M %p"))
 #st.write("Data will be refreshed in:", str(time_remaining))
 #st.write(time_remaining)
+print(datetime.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours))
