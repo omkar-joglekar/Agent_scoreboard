@@ -54,14 +54,14 @@ rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where 
 df=pd.DataFrame(rows)
 df.columns += 1
 df.index = df.index + 1
-df.columns = ["Agent Name", "Funded"]
+df.columns = ["Rank","Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
 rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 df2.index = df2.index + 1
-df2.columns = ["Agent Name", "Funded"]
+df2.columns = ["Rank","Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
 rows3 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
@@ -125,7 +125,7 @@ with tab1:
 
    with col1:
         st.subheader('Total EFS Funded')
-        #df3['Dollar Amount']=df['Dollar Amount'].apply('{:,}'.format)
+        
         st.metric("label3",df3[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
@@ -133,7 +133,7 @@ with tab1:
    with col2:
         st.subheader('Top EFS Agents')
         # Inject CSS with Markdown
-        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df)
   
 with tab2:
@@ -147,7 +147,7 @@ with tab2:
 
    with col4:
         st.subheader('Top FDN Agents')
-        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        #st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df2)
 
 with tab3:
