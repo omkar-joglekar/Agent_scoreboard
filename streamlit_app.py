@@ -163,4 +163,4 @@ with tab3:
           st.table(df7)
           
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
-st.write(f"Next refresh in {hours} hour{'test' if hours = 0 or hours = 0 else ''} {minutes} minutes ({next_refresh_time})")
+st.write(f"Next refresh in {hours} hour{'test' if hours = 0 else ''} {minutes} minutes ({next_refresh_time})")
