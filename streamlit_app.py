@@ -54,14 +54,16 @@ rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where 
 df=pd.DataFrame(rows)
 df.columns += 1
 df.index = df.index + 1
-df.columns = ["Agent Name", "Funded"]
+df.insert(0, "Rank", df.index)
+df.columns = ["Rank","Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
 rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 df2.index = df2.index + 1
-df2.columns = ["Agent Name", "Funded"]
+df2.insert(0, "Rank", df2.index)
+df2.columns = ["Rank","Agent Name", "Funded"]
 df2['Funded'] = df2['Funded'].astype(int)
 
 rows3 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
@@ -91,7 +93,8 @@ rows7 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where
 df7=pd.DataFrame(rows7)
 df7.columns += 1
 df7.index = df7.index + 1
-df7.columns = ["Agent Name", "Funded"]
+df7.insert(0, "Rank", df7.index)
+df7.columns = ["Rank","Agent Name", "Funded"]
 df7['Funded'] = df7['Funded'].astype(int)
 
 rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENTS order by 1;")
