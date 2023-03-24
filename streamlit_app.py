@@ -18,7 +18,7 @@ refresh_interval_hours = 2
 now = dt.datetime.now()
 
 # calculate the next refresh time
-next_refresh = now + datetime.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
+next_refresh = now + dt.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
