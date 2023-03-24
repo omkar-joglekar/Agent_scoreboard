@@ -180,9 +180,10 @@ def countdown_timer():
     
     st.write(f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {timezone.zone})")
     return delta.seconds
-
+  
+remaining_time = countdown_timer()
 while True:
-    remaining_time = countdown_timer()
+    #remaining_time = countdown_timer()
     if remaining_time == 0:
         break
     time.sleep(1)
