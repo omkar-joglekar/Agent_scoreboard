@@ -26,7 +26,7 @@ for time in refresh_times:
 if next_refresh_time is None:
     next_refresh_time = refresh_times[0] # if all refresh times have passed, the next refresh time will be the first one in the list
 
-delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - datetime.datetime.strptime(current_time, "%H:%M")
+delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M")
 
 hours = delta.seconds // 3600
 minutes = (delta.seconds // 60) % 60
