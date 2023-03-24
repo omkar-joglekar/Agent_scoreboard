@@ -5,6 +5,7 @@ import snowflake.connector
 import pandas as pd
 import pytz
 import datetime as dt
+import time
 from datetime import datetime
   
 today = datetime.now()
@@ -155,6 +156,7 @@ with tab3:
 
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
+
 refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
 timezone = pytz.timezone('US/Pacific') # replace 'Your_Time_Zone' with your desired timezone
 
