@@ -159,6 +159,6 @@ with tab3:
           st.table(df7)
           
 #st.caption('_Updates every 2 hours_')
-#st.write("Next data refresh at:", next_refresh.strftime("%I:%M %p"))
-st.write("Data will be refreshed in:", str(time_remaining))
-st.write(time_remaining)
+st.write("Next data refresh at:", next_refresh.strftime("%I:%M %p"))
+#st.write("Data will be refreshed in:", str(time_remaining))
+#st.write(time_remaining)
