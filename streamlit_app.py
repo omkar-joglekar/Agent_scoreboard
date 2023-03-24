@@ -192,7 +192,7 @@ while not stop:
     time.sleep(1)
     
     # Check if the user has closed the Streamlit app
-    stop = st.session_state.stop_countdown_timer
+    #stop = st.session_state.stop_countdown_timer
     
     # Add a button to stop the countdown timer
     #if st.button("Stop countdown timer"):
