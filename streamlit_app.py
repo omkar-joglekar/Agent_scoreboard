@@ -16,13 +16,14 @@ year = today.year
 refresh_interval = 2 # in hours
 
 # Calculate the next refresh time
-now = dt.datetime.now()
+now = datetime.datetime.now()
 next_refresh_hour = (now.hour // refresh_interval + 1) * refresh_interval
 next_refresh_time = now.replace(hour=next_refresh_hour, minute=0, second=0, microsecond=0)
 time_until_refresh = next_refresh_time - now
 
 # Format the countdown timer
-hours, remainder = divmod(time_until_refresh.seconds, 3600)
+total_seconds = int(time_until_refresh.total_seconds())
+hours, remainder = divmod(total_seconds, 3600)
 minutes, seconds = divmod(remainder, 60)
 countdown = f"{hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''}"
 
