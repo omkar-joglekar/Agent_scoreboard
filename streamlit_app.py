@@ -15,10 +15,16 @@ year = today.year
 # Set the refresh interval
 refresh_interval = 2 # in hours
 
+# Define the US West Coast time zone
+us_west_coast_tz = pytz.timezone('US/Pacific')
+
+# Get the current time in the US West Coast time zone
+now = dt.datetime.now(us_west_coast_tz)
+
 # Calculate the next refresh time
-now = dt.datetime.now()
 next_refresh_hour = (now.hour // refresh_interval + 1) * refresh_interval
 next_refresh_time = now.replace(hour=next_refresh_hour, minute=0, second=0, microsecond=0)
+next_refresh_time = us_west_coast_tz.localize(next_refresh_time)
 time_until_refresh = next_refresh_time - now
 
 # Format the countdown timer
@@ -26,6 +32,7 @@ total_seconds = int(time_until_refresh.total_seconds())
 hours, remainder = divmod(total_seconds, 3600)
 minutes, seconds = divmod(remainder, 60)
 countdown = f"{hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''}"
+
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -160,5 +167,6 @@ with tab3:
           st.table(df7)
           
 #st.caption('_Updates every 2 hours_')
+# Display the countdown timer in Streamlit
 st.write(f"Next refresh in {countdown}")
 
