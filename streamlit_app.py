@@ -37,8 +37,8 @@ rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where 
 df=pd.DataFrame(rows)
 df.columns += 1
 df.index = df.index + 1
-df['row_number'] = df.reset_index().index
-df.columns = ["row_number","Agent Name", "Funded"]
+df.insert(1, "rank", df.index)
+df.columns = ["rank","Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
 rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
