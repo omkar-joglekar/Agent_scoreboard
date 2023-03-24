@@ -148,40 +148,58 @@ with tab3:
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 #st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
 
-refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
-timezone = pytz.timezone('US/Pacific')
+REFRESH_TIMES = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
+TIMEZONE = pytz.timezone('Your_Time_Zone') # replace 'Your_Time_Zone' with your desired timezone
 
-def countdown_timer():
-   
-    current_time = dt.datetime.now(timezone).strftime("%H:%M:%S")
-    
-    next_refresh_time = None
-    for time in refresh_times:
-        if current_time < time:
-            next_refresh_time = time
-            break
-            
-    if next_refresh_time is None:
-        next_refresh_time = refresh_times[0] # if all refresh times have passed, the next refresh time will be the first one in the list
+class CountdownTimer:
+    def __init__(self):
+        self.remaining_time = ""
+        self.stop_thread = False
         
-    delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M:%S")
-    
-    hours = delta.seconds // 3600
-    minutes = (delta.seconds // 60) % 60
-    seconds = delta.seconds % 60
-    
-    return f"Next refresh in {hours:2d} hour {minutes:02d} minutes {seconds:02d} seconds"
+        # Start the countdown timer in a separate thread
+        self.thread = threading.Thread(target=self.run_timer)
+        self.thread.start()
+        
+    def run_timer(self):
+        while not self.stop_thread:
+            current_time = dt.datetime.now(TIMEZONE).strftime("%H:%M:%S")
+            
+            next_refresh_time = None
+            for time in REFRESH_TIMES:
+                if current_time < time:
+                    next_refresh_time = time
+                    break
+                
+            if next_refresh_time is None:
+                next_refresh_time = REFRESH_TIMES[0] # if all refresh times have passed, the next refresh time will be the first one in the list
+                    
+            delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - dt.datetime.strptime(current_time, "%H:%M:%S")
+            
+            hours = delta.seconds // 3600
+            minutes = (delta.seconds // 60) % 60
+            seconds = delta.seconds % 60
+            
+            self.remaining_time = f"Next refresh in {hours:02d}:{minutes:02d}:{seconds:02d} ({next_refresh_time} {TIMEZONE.zone})"
+            
+            # Refresh the app if it's time for a data refresh
+            if self.remaining_time == "Next refresh in 00:00:00":
+                st.write("Refreshing the data...")
+                # Add your code to refresh the data here
+                
+            time.sleep(1)
+            
+    def stop(self):
+        self.stop_thread = True
+        self.thread.join()
 
-remaining_time = countdown_timer()
-stop = False
-with st.empty():
-   while not stop:
-    st.write(remaining_time)
-    remaining_time = countdown_timer()
-    if remaining_time == "Next refresh in 00:00:00":
-        # Refresh the data
-        st.write("Refreshing the data...")
-        # Add your code to refresh the data here
-    time.sleep(1)
+# Initialize the countdown timer
+countdown_timer = CountdownTimer()
+
+# Display the remaining time
+st.write(countdown_timer.remaining_time)
+
+# Add a button to stop the countdown timer
+if st.button("Stop countdown timer"):
+    countdown_timer.stop()
   
     
