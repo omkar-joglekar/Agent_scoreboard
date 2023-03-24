@@ -203,5 +203,5 @@ with st.empty():
     
     # Add a button to stop the countdown timer
     stop_button_key = str(uuid.uuid4())
-    if st.button("Stop countdown timer"):
+    if st.button("Stop countdown timer", key=stop_button_key):
         st.session_state.stop_countdown_timer = True
