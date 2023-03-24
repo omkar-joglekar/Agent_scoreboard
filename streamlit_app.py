@@ -12,30 +12,24 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
-# set the timezone to Pacific Time
+refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
 timezone = pytz.timezone('US/Pacific')
 
-# create a list of refresh times in 24-hour format
-refresh_times = [dt.time(hour=h, tzinfo=timezone) for h in [8, 10, 12, 14, 16, 18, 20, 22, 0, 2, 4, 6]]
+current_time = dt.datetime.now(timezone).strftime("%H:%M")
 
-# get the current time in Pacific Time
-now = dt.datetime.now(tz=timezone)
-
-# find the next refresh time
-next_refresh = None
-for refresh_time in refresh_times:
-    if now.time() < refresh_time:
-        next_refresh = dt.datetime.combine(now.date(), refresh_time)
+next_refresh_time = None
+for time in refresh_times:
+    if current_time < time:
+        next_refresh_time = time
         break
+        
+if next_refresh_time is None:
+    next_refresh_time = refresh_times[0] # if all refresh times have passed, the next refresh time will be the first one in the list
 
-if next_refresh is None:
-    next_refresh = dt.datetime.combine(now.date() + dt.timedelta(days=1), refresh_times[0])
+delta = dt.datetime.strptime(next_refresh_time, "%H:%M") - datetime.datetime.strptime(current_time, "%H:%M")
 
-time_left = next_refresh - now
-
-# display the time left in a human-readable format
-hours_left, seconds_left = divmod(time_left.seconds, 3600)
-minutes_left = seconds_left // 60
+hours = delta.seconds // 3600
+minutes = (delta.seconds // 60) % 60
 
 
 # Initialize connection.
@@ -171,7 +165,6 @@ with tab3:
           st.table(df7)
           
 #st.caption('_Updates every 2 hours_')
-# Display the countdown timer in Streamlit
-# display the time left in a human-readable format
-st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
 
+#st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
+st.write(f"Next refresh in {hours} hours {minutes} minutes ({next_refresh_time} {timezone.zone})")
