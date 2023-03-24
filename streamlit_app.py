@@ -190,7 +190,7 @@ remaining_time = countdown_timer()
 stop = False
 with st.empty():
    while not stop:
-   st.write(remaining_time)
+    st.write(remaining_time)
     remaining_time = countdown_timer()
     if remaining_time == "Next refresh in 00:00:00":
         # Refresh the data
