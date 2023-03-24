@@ -10,6 +10,15 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
+# define the refresh interval in hours
+refresh_interval_hours = 2
+
+# get the current time
+now = datetime.datetime.now()
+
+# calculate the next refresh time
+next_refresh = now + datetime.timedelta(hours=refresh_interval_hours - now.hour % refresh_interval_hours)
+
 # Initialize connection.
 # Uses st.cache_resource to only run once.
 @st.cache_resource
@@ -143,3 +152,4 @@ with tab3:
           st.table(df7)
           
 st.caption('_Updates every 2 hours_')
+st.write("Next data refresh at:", next_refresh.strftime("%Y-%m-%d %H:%M:%S"))
