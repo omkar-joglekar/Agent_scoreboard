@@ -112,7 +112,7 @@ rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFU
 df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 #df9['Total_DF'] = df9['Total_DF'].astype(int)
-df9['Total_DF'] = df['Total_DF'].apply(locale.format_string, grouping=True)
+df9['Total_DF'] = df9['Total_DF'].apply(locale.format_string, grouping=True)
 
 html_str = f"""
 <h1 style='text-align: center; color: white;'>{month} {year}</h1>
