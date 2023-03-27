@@ -170,4 +170,4 @@ if hours == 0:
 else:
     st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
     
-#st.image('logo.png', use_column_width='auto')
+st.image('logo.png')
