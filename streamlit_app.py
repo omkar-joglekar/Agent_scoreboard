@@ -164,7 +164,7 @@ with tab3:
           st.subheader('Top CSR Decline Agents')
           st.table(df7)
           
-#st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
+#display the next refresh time 
 if hours == 0:
     st.write(f"Next refresh in {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
 else:
