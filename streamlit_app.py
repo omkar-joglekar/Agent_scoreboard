@@ -4,12 +4,9 @@ import streamlit as st
 import snowflake.connector
 import pandas as pd
 import pytz
-import locale
 import datetime as dt
 from datetime import datetime
 
-# set the locale to the user's default
-locale.setlocale(locale.LC_ALL, '')
 
 #Get Month and Year for App title
 today = datetime.now()
@@ -112,7 +109,7 @@ rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFU
 df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 #df9['Total_DF'] = df9['Total_DF'].astype(int)
-df9['Total_DF'] = df9['Total_DF'].apply(lambda x: locale.format_string("%d", x, grouping=True))
+df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
 html_str = f"""
 <h1 style='text-align: center; color: white;'>{month} {year}</h1>
