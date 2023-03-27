@@ -106,7 +106,8 @@ df8['Funded'] = df8['Funded'].astype(int)
 
 rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED';")
 df9=pd.DataFrame(rows9)
-df9[0] = df9[0].astype(int)
+df9.columns = ["Total_DF"]
+df9['Total_DF'] = df9['Total_DF'].astype(int)
 
 html_str = f"""
 <h1 style='text-align: center; color: white;'>{month} {year}</h1>
