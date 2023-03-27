@@ -7,8 +7,7 @@ import pytz
 import datetime as dt
 from datetime import datetime
 
-
-#Get Month and Year for App title
+#Get Month and Year for app title
 today = datetime.now()
 month = today.strftime("%B")
 year = today.year
@@ -166,4 +165,4 @@ with tab3:
           st.table(df7)
           
 #st.write(f"Time left until next refresh: {hours_left} hour{'s' if hours_left != 1 else ''}, {minutes_left} minute{'s' if minutes_left != 1 else ''}")
-st.write(f"Next refresh in {'' if hours == 0 else 'hours' if hours != 1 else 'hour'} {minutes} minutes ({next_refresh_time})")
+st.write(f"Next refresh in {hours} {'' if hours == 0 else 'hours' if hours != 1 else 'hour' if hours == 1'} {minutes} minutes ({next_refresh_time})")
