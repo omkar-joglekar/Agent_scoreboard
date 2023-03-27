@@ -69,12 +69,13 @@ df2['Funded'] = df2['Funded'].astype(int)
 
 rows3 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
 df3=pd.DataFrame(rows3)
-df3[0] = df3[0].astype(int)
+df3.columns = ["Total_EFS"]
+df3['Total_EFS'] = df3['Total_EFS'].apply(lambda x: '{:,.0f}'.format(x))
 
 rows4 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='FDN' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
 df4=pd.DataFrame(rows4)
-df4.columns = ["Total FDN Funded"]
-df4['Total FDN Funded'] = df4['Total FDN Funded'].astype(int)
+df4.columns = ["Total_FDN"]
+df4['Total_FDN'] = df4['Total_FDN'].apply(lambda x: '{:,.0f}'.format(x))
 
 rows5 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENTS order by 1;")
 df5=pd.DataFrame(rows5)
@@ -108,7 +109,6 @@ df8['Funded'] = df8['Funded'].astype(int)
 rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED';")
 df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
-#df9['Total_DF'] = df9['Total_DF'].astype(int)
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
 html_str = f"""
@@ -131,7 +131,7 @@ with tab1:
 
    with col1:
         st.subheader('Total EFS Funded')
-        st.metric("label3",df3[0], label_visibility="collapsed")
+        st.metric("label3",df3['Total_EFS'].iloc[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df5)
 
@@ -144,7 +144,7 @@ with tab2:
 
    with col3:
         st.subheader('Total FDN Funded')
-        st.metric("label2", df4['Total FDN Funded'], label_visibility="collapsed")
+        st.metric("label2", df4['Total_FDN'].iloc[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
         st.table(df6)
 
