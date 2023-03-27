@@ -171,11 +171,13 @@ else:
     st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
     
 #st.image('logo.png')
-col7, col8, col9 = st.columns(3)
+col7, col8, col9 = st.columns([1,1,1,4])
 
 with col7:
     st.write("")
 with col8:
     st.write("")
 with col9:
+    st.write("") 
+with col10:
     st.image("logo.png")
