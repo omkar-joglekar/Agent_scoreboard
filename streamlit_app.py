@@ -111,7 +111,7 @@ df8['Funded'] = df8['Funded'].astype(int)
 rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED';")
 df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
-df9['Total_DF'] = df9['Total_DF'].astype(int)
+#df9['Total_DF'] = df9['Total_DF'].astype(int)
 df9['Total_DF'] = df['Total_DF'].apply(locale.format_string, grouping=True)
 
 html_str = f"""
