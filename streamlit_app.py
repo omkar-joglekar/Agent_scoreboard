@@ -171,7 +171,7 @@ with tab3:
     #else:
     #st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
     
-col7, col8, col9, col10, col11, col12 = st.columns([1.5,0.25,0.25,0.25,0.25,0.55])
+col7, col8, col9 = st.columns([1.5,0.25,0.55])
 
 with col7:
     #display the next refresh time 
@@ -183,10 +183,5 @@ with col7:
 with col8:
     st.write("")
 with col9:
-    st.write("") 
-with col10:
-    st.write("")
-with col11:
-    st.write("")
-with col12:
     st.image("logo.png")
+    
