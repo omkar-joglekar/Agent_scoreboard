@@ -174,8 +174,8 @@ else:
 col7, col8, col9 = st.columns(3)
 
 with col7:
-st.write("")
+    st.write("")
 with col8:
-st.write("")
+    st.write("")
 with col9:
-st.image("logo.png")
+    st.image("logo.png")
