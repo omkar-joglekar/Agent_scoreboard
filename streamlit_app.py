@@ -171,7 +171,7 @@ with tab3:
     #else:
     #st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
     
-col7, col8, col9, col10, col11 = st.columns([2,0.5,0.5,0.5,2])
+col7, col8, col9, col10, col11 = st.columns([1.5,0.5,0.5,0.5,1.5])
 
 with col7:
     #display the next refresh time 
