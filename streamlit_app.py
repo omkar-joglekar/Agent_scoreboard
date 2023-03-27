@@ -173,23 +173,15 @@ with tab3:
    with col6:
           st.subheader('Top CSR Decline Agents')
           st.table(df7)
-       
-    
-    #display the next refresh time 
-    #if hours == 0:
-    #st.write(f"Next refresh in {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-    #else:
-    #st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-    
+            
+#Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
 
 with col7:
-    #display the next refresh time 
   if hours == 0:
     st.write(f"Next refresh in {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
   else:
     st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
-    
 with col8:
     st.write("")
 with col9:
