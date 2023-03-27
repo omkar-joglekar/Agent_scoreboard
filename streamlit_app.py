@@ -110,6 +110,16 @@ df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
+
+#markdown
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
 html_str = f"""
 <h1 style='text-align: center; color: white;'>{month} {year}</h1>
 """
