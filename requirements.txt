@@ -1,4 +1,4 @@
 streamlit==1.20.0
-
+streamlit-autorefresh==0.0.1
 -r https://raw.githubusercontent.com/snowflakedb/snowflake-connector-python/main/tested_requirements/requirements_39.reqs
 snowflake-connector-python==3.0.1
