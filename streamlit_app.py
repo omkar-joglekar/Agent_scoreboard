@@ -114,6 +114,10 @@ df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
+rows10 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and loan_provider__c='Progressa' and stagename='Funded';")
+df10 = pd.DataFrame(rows10)
+df10.columns = ["Prog_funded"]
+df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
 #markdown
 hide_streamlit_style = """
@@ -136,7 +140,7 @@ hide_table_row_index = """
            </style>
             """
 
-tab1, tab2, tab3 = st.tabs(["EFS", "Fundies", "CSR Declines"])
+tab1, tab2, tab3, tab4 = st.tabs(["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"])
 
 with tab1:
    
@@ -177,6 +181,15 @@ with tab3:
    with col6:
           st.subheader('Top CSR Decline Agents')
           st.table(df7)
+
+with tab4:
+    col10,col11 = st.columns(2)
+    
+    with col10:
+         st.subheader('Total Progressa Funded')
+         st.metric("blank_label",df10['Prog_funded'], label_visibility="collapsed")
+    with col11:
+         st.subheader('Total Lendful Funded')
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
