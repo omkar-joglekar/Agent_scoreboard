@@ -194,7 +194,7 @@ with tab4:
          #st.subheader('Total Progressa Funded')
          st.metric("Total Progressa Funded",df10['Prog_funded'])
     with col11:
-         st.metric('Total Lendful Funded',df10['Lend_funded'])
+         st.metric('Total Lendful Funded',df11['Lend_funded'])
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
