@@ -186,10 +186,10 @@ with tab4:
     col10,col11 = st.columns(2)
     
     with col10:
-         st.subheader('Total Progressa Funded')
-         st.metric("blank_label",df10['Prog_funded'], label_visibility="collapsed")
+         #st.subheader('Total Progressa Funded')
+         st.metric("Total Progressa Funded",df10['Prog_funded'])
     with col11:
-         st.subheader('Total Lendful Funded')
+         st.metric('Total Lendful Funded','')
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
