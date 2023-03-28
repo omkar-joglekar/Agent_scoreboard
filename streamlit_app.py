@@ -119,6 +119,11 @@ df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded"]
 df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
+rows11 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and loan_provider__c='Lendful' and stagename='Funded';")
+df11 = pd.DataFrame(rows11)
+df11.columns = ["Lend_funded"]
+df11['Lend_funded'] = df11['Lend_funded'].astype(int)
+
 #markdown
 hide_streamlit_style = """
             <style>
@@ -189,7 +194,7 @@ with tab4:
          #st.subheader('Total Progressa Funded')
          st.metric("Total Progressa Funded",df10['Prog_funded'])
     with col11:
-         st.metric('Total Lendful Funded','')
+         st.metric('Total Lendful Funded',df10['Lend_funded'])
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
