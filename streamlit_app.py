@@ -162,7 +162,7 @@ with tab2:
         st.table(df6)
 
    with col4:
-        st.subheader('Top FDN Agents')
+        st.subheader('Top Fundie Agents')
         st.table(df2)
 
 with tab3:
