@@ -200,7 +200,7 @@ elif selected_option == "CSR Declines":
           st.table(df7)
 
 elif selected_option == "Total Funded by Partner":
-    col10, col11, col12, col13  = st.columns(3)
+    col10, col11, col12, col13  = st.columns(4)
     
     with col10:
          #st.subheader('Total Progressa Funded')
