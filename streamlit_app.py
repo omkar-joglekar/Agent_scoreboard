@@ -8,7 +8,7 @@ import datetime as dt
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
 
-# update every 1 mins
+# update every 5 mins
 st_autorefresh(interval=5 * 60 * 1000, key="datarefresh")
 
 #Get Month and Year for app title
@@ -210,3 +210,12 @@ with col8:
     st.write("")
 with col9:
     st.image("logo.png")
+
+css = '''
+      <style>
+      section.main > div:has(~ footer ) {
+      padding-bottom: 5px;
+      }
+      </style>
+      '''
+st.markdown(css, unsafe_allow_html=True)
