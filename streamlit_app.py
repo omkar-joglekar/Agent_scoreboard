@@ -6,10 +6,10 @@ import pandas as pd
 import pytz
 import datetime as dt
 from datetime import datetime
-#from streamlit_autorefresh import st_autorefresh
+from streamlit_autorefresh import st_autorefresh
 
-# update every 5 mins
-#st_autorefresh(interval=5 * 60 * 1000, key="datarefresh")
+# update every 1 mins
+st_autorefresh(interval=5 * 60 * 1000, key="datarefresh")
 
 #Get Month and Year for app title
 today = datetime.now()
@@ -144,10 +144,12 @@ hide_table_row_index = """
             tbody th {display:none}
            </style>
             """
+options = ["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"]
+selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
-tab1, tab2, tab3, tab4 = st.tabs(["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"])
+#tab1, tab2, tab3, tab4 = st.tabs(["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"])
 
-with tab1:
+if selected_option == "EFS":
    
    col1, col2 = st.columns([4,4])
 
@@ -161,7 +163,7 @@ with tab1:
         st.subheader('Top EFS Agents')
         st.table(df)
   
-with tab2:
+elif selected_option == "Fundies":
    col3, col4 = st.columns([4,4]) 
 
    with col3:
@@ -174,7 +176,7 @@ with tab2:
         st.subheader('Top Fundie Agents')
         st.table(df2)
 
-with tab3:
+elif selected_option == "CSR Declines":
    col5, col6 = st.columns([4,4])  
   
    with col5:
@@ -187,7 +189,7 @@ with tab3:
           st.subheader('Top CSR Decline Agents')
           st.table(df7)
 
-with tab4:
+elif selected_option == "Total Funded by Partner":
     col10,col11 = st.columns(2)
     
     with col10:
@@ -208,4 +210,3 @@ with col8:
     st.write("")
 with col9:
     st.image("logo.png")
-    
