@@ -114,15 +114,20 @@ df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows10 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and loan_provider__c='Progressa' and stagename='Funded';")
+rows10 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded';")
 df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded"]
 df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
-rows11 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and loan_provider__c='Lendful' and stagename='Funded';")
+rows11 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded';")
 df11 = pd.DataFrame(rows11)
 df11.columns = ["Lend_funded"]
 df11['Lend_funded'] = df11['Lend_funded'].astype(int)
+
+rows12 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(closedate)=month(current_date) and year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%'")
+df12 = pd.DataFrame(rows12)
+df12.columns = ["ccc_funded"]
+df12['ccc_funded'] = df12['ccc_funded'].astype(int)
 
 #markdown
 hide_streamlit_style = """
@@ -190,13 +195,15 @@ elif selected_option == "CSR Declines":
           st.table(df7)
 
 elif selected_option == "Total Funded by Partner":
-    col10,col11 = st.columns(2)
+    col10, col11, col12  = st.columns(3)
     
     with col10:
          #st.subheader('Total Progressa Funded')
          st.metric("Total Progressa Funded",df10['Prog_funded'])
     with col11:
          st.metric('Total Lendful Funded',df11['Lend_funded'])
+    with col12:
+         st.metric('Total CCC Funded',df12['ccc_funded'])
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
