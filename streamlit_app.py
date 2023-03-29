@@ -129,6 +129,11 @@ df12 = pd.DataFrame(rows12)
 df12.columns = ["ccc_funded"]
 df12['ccc_funded'] = df12['ccc_funded'].astype(int)
 
+rows13 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded'")
+df13 = pd.DataFrame(rows13)
+df13.columns = ["evergreen_funded"]
+df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
+
 #markdown
 hide_streamlit_style = """
             <style>
@@ -195,7 +200,7 @@ elif selected_option == "CSR Declines":
           st.table(df7)
 
 elif selected_option == "Total Funded by Partner":
-    col10, col11, col12  = st.columns(3)
+    col10, col11, col12, col13  = st.columns(3)
     
     with col10:
          #st.subheader('Total Progressa Funded')
@@ -204,6 +209,8 @@ elif selected_option == "Total Funded by Partner":
          st.metric('Total Lendful Funded',df11['Lend_funded'])
     with col12:
          st.metric('Total CCC Funded',df12['ccc_funded'])
+    with col13:
+         st.metric('Total Evergreen Funded',df13['evergreen_funded'])   
             
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
