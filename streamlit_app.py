@@ -146,10 +146,10 @@ df14['Funded']=df14['Funded'].astype(int)
 rows15 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name;")
 df15 = pd.DataFrame(rows15)
 df15.columns += 1
-df15.index = df14.index + 1
+df15.index = df15.index + 1
 df15.insert(0, "Rank", df15.index)
 df15.columns = ["Rank","Agent Name", "Funded"]
-df15['Funded']=df14['Funded'].astype(int)
+df15['Funded']=df15['Funded'].astype(int)
 
 #markdown
 hide_streamlit_style = """
