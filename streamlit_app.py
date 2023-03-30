@@ -224,7 +224,7 @@ elif selected_option == "Progressa & Lendful Funded":
          st.metric('Total Lendful Funded',df11['Lend_funded'])
      
 elif selected_option == "CCC & Evergreen Funded":
-    col12, col13 = st.columns(2)
+    col12, col13 = st.columns([4,4])
     
     with col12:
          #st.subheader("Total CCC Funded")
