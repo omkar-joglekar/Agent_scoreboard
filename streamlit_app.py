@@ -134,6 +134,14 @@ df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded"]
 df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
 
+rows14 = run_query("select Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='CCC' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
+df14 = pd.DataFrame(rows14)
+df14.columns += 1
+df14.index = df14.index + 1
+df14.insert(0, "Rank", df14.index)
+df14.columns = ["Rank","Agent Name", "Funded"]
+df14['Funded']=df14['Funded'].astype(int)
+
 #markdown
 hide_streamlit_style = """
             <style>
@@ -199,20 +207,28 @@ elif selected_option == "CSR Declines":
           st.subheader('Top CSR Decline Agents')
           st.table(df7)
 
-elif selected_option == "Total Funded by Partner":
-    col10, col11, col12, col13  = st.columns(4)
+elif selected_option == "Progressa & Lendful Funded":
+    col10, col11  = st.columns(2)
     
     with col10:
          #st.subheader('Total Progressa Funded')
          st.metric("Total Progressa Funded",df10['Prog_funded'])
     with col11:
          st.metric('Total Lendful Funded',df11['Lend_funded'])
+     
+elif selected_option == "CCC & Evergreen Funded":
+    col12, col13 = st.columns(2)
+    
     with col12:
-         st.metric('Total CCC Funded',df12['ccc_funded'])
+         #st.subheader("Total CCC Funded")
+         st.metric("Total CCC Funded",df12['ccc_funded'],label_visibility="visible")
+         st.subheader("Top CCC Agents")
+         st.table(df14)
+         
     with col13:
          st.metric('Total Evergreen Funded',df13['evergreen_funded'])   
-            
-#Display next refresh time and logo    
+    
+    #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
 
 with col7:
