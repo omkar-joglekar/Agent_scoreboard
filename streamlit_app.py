@@ -162,7 +162,7 @@ hide_table_row_index = """
             tbody th {display:none}
            </style>
             """
-options = ["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"]
+options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
 #tab1, tab2, tab3, tab4 = st.tabs(["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"])
