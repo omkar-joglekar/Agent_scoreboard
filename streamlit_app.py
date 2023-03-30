@@ -16,6 +16,7 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
+#Calculate next refresh time
 refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
 timezone = pytz.timezone('US/Pacific')
 
@@ -53,7 +54,7 @@ def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
-
+#Queries
 rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc;")
 df=pd.DataFrame(rows)
 df.columns += 1
@@ -142,6 +143,14 @@ df14.insert(0, "Rank", df14.index)
 df14.columns = ["Rank","Agent Name", "Funded"]
 df14['Funded']=df14['Funded'].astype(int)
 
+rows15 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name;")
+df15 = pd.DataFrame(rows15)
+df15.columns += 1
+df15.index = df14.index + 1
+df15.insert(0, "Rank", df15.index)
+df15.columns = ["Rank","Agent Name", "Funded"]
+df15['Funded']=df14['Funded'].astype(int)
+
 #markdown
 hide_streamlit_style = """
             <style>
@@ -164,8 +173,6 @@ hide_table_row_index = """
             """
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
-
-#tab1, tab2, tab3, tab4 = st.tabs(["EFS", "Fundies", "CSR Declines", "Total Funded by Partner"])
 
 if selected_option == "EFS":
    
@@ -228,8 +235,11 @@ elif selected_option == "CCC & Evergreen Funded":
          
     with col13:
          st.metric('Total Evergreen Funded',df13['evergreen_funded'])   
-    
-    #Display next refresh time and logo    
+         st.subheader("Top Evergreen Agents")
+         st.markdown(hide_table_row_index, unsafe_allow_html=True)
+         st.table(df15) 
+        
+#Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
 
 with col7:
