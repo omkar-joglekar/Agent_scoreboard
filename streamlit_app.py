@@ -223,6 +223,7 @@ elif selected_option == "CCC & Evergreen Funded":
          #st.subheader("Total CCC Funded")
          st.metric("Total CCC Funded",df12['ccc_funded'],label_visibility="visible")
          st.subheader("Top CCC Agents")
+         st.markdown(hide_table_row_index, unsafe_allow_html=True)
          st.table(df14)
          
     with col13:
