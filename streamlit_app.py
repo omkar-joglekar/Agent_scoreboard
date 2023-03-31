@@ -135,7 +135,7 @@ df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded"]
 df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
 
-rows14 = run_query("select Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='CCC' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
+rows14 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(closedate)=month(current_date) and year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c order by count(distinct a.id) desc;")
 df14 = pd.DataFrame(rows14)
 df14.columns += 1
 df14.index = df14.index + 1
