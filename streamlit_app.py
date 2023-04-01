@@ -110,7 +110,7 @@ df8.index = df8.index + 1
 df8.columns = ["Team", "Lead", "Funded"]
 df8['Funded'] = df8['Funded'].astype(int)
 
-rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED';")
+rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
 df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
