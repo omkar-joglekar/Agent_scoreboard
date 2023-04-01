@@ -63,7 +63,7 @@ df.insert(0, "Rank", df.index)
 df.columns = ["Rank","Agent Name", "Funded"]
 df['Funded'] = df['Funded'].astype(int)
 
-rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) and sp_f <>0 group by Agents, Type order by sum(SP_F) desc;")
+rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents, Type order by sum(SP_F) desc;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 df2.index = df2.index + 1
