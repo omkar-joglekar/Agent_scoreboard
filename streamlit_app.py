@@ -81,7 +81,7 @@ df4=pd.DataFrame(rows4)
 df4.columns = ["Total_FDN"]
 #df4['Total_FDN'] = df4['Total_FDN'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows5 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENTS order by 1;")
+rows5 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
 df5=pd.DataFrame(rows5)
 df5.columns += 1
 df5.index = df5.index + 1
