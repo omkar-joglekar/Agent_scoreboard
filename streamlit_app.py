@@ -103,7 +103,7 @@ df7.insert(0, "Rank", df7.index)
 df7.columns = ["Rank","Agent Name", "Funded"]
 df7['Funded'] = df7['Funded'].astype(int)
 
-rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENTS order by 1;")
+rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
 df8=pd.DataFrame(rows8)
 df8.columns += 1
 df8.index = df8.index + 1
