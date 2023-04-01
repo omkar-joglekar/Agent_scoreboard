@@ -88,7 +88,7 @@ df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded"]
 df5['Funded'] = df5['Funded'].astype(int)
 
-rows6 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENTS order by 1;")
+rows6 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='FDN' AND MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
