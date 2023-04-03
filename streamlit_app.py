@@ -86,14 +86,14 @@ df5=pd.DataFrame(rows5)
 df5.columns += 1
 df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded"]
-df5['Funded'] = df5['Funded'].astype(int)
+df5['Funded'] = pd.to_numeric(df5['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows6 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='FDN' AND MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded"]
-df6['Funded'] = df6['Funded'].astype(int)
+df6['Funded'] = pd.to_numeric(df6['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows7 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc;")
 df7=pd.DataFrame(rows7)
@@ -101,14 +101,14 @@ df7.columns += 1
 df7.index = df7.index + 1
 df7.insert(0, "Rank", df7.index)
 df7.columns = ["Rank","Agent Name", "Funded"]
-df7['Funded'] = df7['Funded'].astype(int)
+df7['Funded'] = pd.to_numeric(df7['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
 df8=pd.DataFrame(rows8)
 df8.columns += 1
 df8.index = df8.index + 1
 df8.columns = ["Team", "Lead", "Funded"]
-df8['Funded'] = df8['Funded'].astype(int)
+df8['Funded'] = pd.to_numeric(df8['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
 df9=pd.DataFrame(rows9)
@@ -118,22 +118,22 @@ df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 rows10 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded';")
 df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded"]
-df10['Prog_funded'] = df10['Prog_funded'].astype(int)
+df10['Prog_funded'] = pd.to_numeric(df10['Prog_funded'], errors='coerce').fillna(0).astype(int)
 
 rows11 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded';")
 df11 = pd.DataFrame(rows11)
 df11.columns = ["Lend_funded"]
-df11['Lend_funded'] = df11['Lend_funded'].astype(int)
+df11['Lend_funded'] = pd.to_numeric(df11['Lend_funded'], errors='coerce').fillna(0).astype(int)
 
 rows12 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(closedate)=month(current_date) and year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%'")
 df12 = pd.DataFrame(rows12)
 df12.columns = ["ccc_funded"]
-df12['ccc_funded'] = df12['ccc_funded'].astype(int)
+df12['ccc_funded'] = pd.to_numeric(df12['ccc_funded'], errors='coerce').fillna(0).astype(int)
 
 rows13 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded'")
 df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded"]
-df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
+df13['evergreen_funded'] = pd.to_numeric(df13['evergreen_funded'], errors='coerce').fillna(0).astype(int)
 
 rows14 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(closedate)=month(current_date) and year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c order by count(distinct a.id) desc;")
 df14 = pd.DataFrame(rows14)
@@ -141,7 +141,7 @@ df14.columns += 1
 df14.index = df14.index + 1
 df14.insert(0, "Rank", df14.index)
 df14.columns = ["Rank","Agent Name", "Funded"]
-df14['Funded']=df14['Funded'].astype(int)
+df14['Funded']= pd.to_numeric(df14['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows15 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name order by count(distinct a.id) desc ;")
 df15 = pd.DataFrame(rows15)
@@ -149,7 +149,7 @@ df15.columns += 1
 df15.index = df15.index + 1
 df15.insert(0, "Rank", df15.index)
 df15.columns = ["Rank","Agent Name", "Funded"]
-df15['Funded']=df15['Funded'].astype(int)
+df15['Funded']= pd.to_numeric(df15['Funded'], errors='coerce').fillna(0).astype(int)
 
 #markdown
 hide_streamlit_style = """
