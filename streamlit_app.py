@@ -95,7 +95,7 @@ df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded"]
 df6['Funded'] = pd.to_numeric(df6['Funded'], errors='coerce').fillna(0).astype(int)
 
-rows7 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc;")
+rows7 = run_query("select Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and sp_f is not null and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc limit 10;")
 df7=pd.DataFrame(rows7)
 df7.columns += 1
 df7.index = df7.index + 1
