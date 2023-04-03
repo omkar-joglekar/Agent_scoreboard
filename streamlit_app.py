@@ -61,7 +61,7 @@ df.columns += 1
 df.index = df.index + 1
 df.insert(0, "Rank", df.index)
 df.columns = ["Rank","Agent Name", "Funded"]
-df['Funded'] = df['Funded'].astype(int)
+df['Funded'] = pd.to_numeric(df['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents, Type order by sum(SP_F) desc;")
 df2=pd.DataFrame(rows2)
@@ -69,7 +69,7 @@ df2.columns += 1
 df2.index = df2.index + 1
 df2.insert(0, "Rank", df2.index)
 df2.columns = ["Rank","Agent Name", "Funded"]
-df2['Funded'] = df2['Funded'].astype(int)
+df2['Funded'] = pd.to_numeric(df2['Funded'], errors='coerce').fillna(0).astype(int)
 
 rows3 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
 df3=pd.DataFrame(rows3)
