@@ -54,102 +54,103 @@ def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
+    
 #Queries
-rows = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='EFS' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc;")
+rows = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' group by Agents, Date;")
 df=pd.DataFrame(rows)
 df.columns += 1
-df.index = df.index + 1
-df.insert(0, "Rank", df.index)
-df.columns = ["Rank","Agent Name", "Funded"]
-df['Funded'] = pd.to_numeric(df['Funded'], errors='coerce').fillna(0).astype(int)
+#df.index = df.index + 1
+#df.insert(0, "Rank", df.index)
+df.columns = ["Rank","Agent Name", "Funded", "Date"]
+df['Funded'] = df['Funded'].astype(int)
 
-rows2 = run_query("select top 10 Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='FDN' and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents, Type order by sum(SP_F) desc;")
+rows2 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='FDN' group by Agents, Date;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
-df2.index = df2.index + 1
-df2.insert(0, "Rank", df2.index)
-df2.columns = ["Rank","Agent Name", "Funded"]
-df2['Funded'] = pd.to_numeric(df2['Funded'], errors='coerce').fillna(0).astype(int)
+#df2.index = df2.index + 1
+#df2.insert(0, "Rank", df2.index)
+df2.columns = ["Rank","Agent Name", "Funded", "Date"]
+df2['Funded'] = df2['Funded'].astype(int)
 
-rows3 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
+rows3 = run_query("select sum(SP_F),Date from TEAMLEADS_MAR2023 where TYPE ='EFS' group by Date;")
 df3=pd.DataFrame(rows3)
-df3.columns = ["Total_EFS"]
+df3.columns = ["Total_EFS", "Date"]
 df3['Total_EFS'] = df3['Total_EFS'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows4 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE ='FDN' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
+rows4 = run_query("select sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE ='FDN' group by Date;")
 df4=pd.DataFrame(rows4)
-df4.columns = ["Total_FDN"]
+df4.columns = ["Total_FDN", "Date"]
 df4['Total_FDN'] = df4['Total_FDN'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows5 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='EFS' AND MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
+rows5 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENTS, Date order by 1;")
 df5=pd.DataFrame(rows5)
 df5.columns += 1
 df5.index = df5.index + 1
-df5.columns = ["Team", "Lead", "Funded"]
-df5['Funded'] = pd.to_numeric(df5['Funded'], errors='coerce').fillna(0).astype(int)
+df5.columns = ["Team", "Lead", "Funded", "Date"]
+df5['Funded'] = df5['Funded'].astype(int)
 
-rows6 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='FDN' AND MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
+rows6 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENTS, Date order by 1;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
-df6.columns = ["Team", "Lead", "Funded"]
-df6['Funded'] = pd.to_numeric(df6['Funded'], errors='coerce').fillna(0).astype(int)
+df6.columns = ["Team", "Lead", "Funded", "Date"]
+df6['Funded'] = df6['Funded'].astype(int)
 
-rows7 = run_query("select Agents, sum(sp_f) from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and sp_f is not null and MONTH(CURRENT_DATE)=MONTH(DATE) group by Agents order by sum(sp_f) desc limit 10;")
+rows7 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' group by Agents, Date;")
 df7=pd.DataFrame(rows7)
 df7.columns += 1
-df7.index = df7.index + 1
-df7.insert(0, "Rank", df7.index)
-df7.columns = ["Rank","Agent Name", "Funded"]
-df7['Funded'] = pd.to_numeric(df7['Funded'], errors='coerce').fillna(0).astype(int)
+#df7.index = df7.index + 1
+#df7.insert(0, "Rank", df7.index)
+df7.columns = ["Rank","Agent Name", "Funded", "Date"]
+df7['Funded'] = df7['Funded'].astype(int)
 
-rows8 = run_query("select TEAM, AGENTS, sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' and MONTH(CURRENT_DATE)=MONTH(DATE) group by TEAM, AGENTS order by 1;")
+rows8 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENTS, Date order by 1;")
 df8=pd.DataFrame(rows8)
 df8.columns += 1
 df8.index = df8.index + 1
-df8.columns = ["Team", "Lead", "Funded"]
-df8['Funded'] = pd.to_numeric(df8['Funded'], errors='coerce').fillna(0).astype(int)
+df8.columns = ["Team", "Lead", "Funded", "Date"]
+df8['Funded'] = df8['Funded'].astype(int)
 
-rows9 = run_query("select sum(SP_F) from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' AND MONTH(CURRENT_DATE)=MONTH(DATE);")
+rows9 = run_query("select sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by Date;")
 df9=pd.DataFrame(rows9)
-df9.columns = ["Total_DF"]
+df9.columns = ["Total_DF", "Date"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows10 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded';")
+rows10 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded' group by DATE;")
 df10 = pd.DataFrame(rows10)
-df10.columns = ["Prog_funded"]
-df10['Prog_funded'] = pd.to_numeric(df10['Prog_funded'], errors='coerce').fillna(0).astype(int)
+df10.columns = ["Prog_funded", "Date"]
+df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
-rows11 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(current_date)= month(closedate) and year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded';")
+rows11 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded' group by DATE;")
 df11 = pd.DataFrame(rows11)
-df11.columns = ["Lend_funded"]
-df11['Lend_funded'] = pd.to_numeric(df11['Lend_funded'], errors='coerce').fillna(0).astype(int)
+df11.columns = ["Lend_funded", "Date"]
+df11['Lend_funded'] = df11['Lend_funded'].astype(int)
 
-rows12 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(closedate)=month(current_date) and year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%'")
+rows12 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%' group by DATE")
 df12 = pd.DataFrame(rows12)
-df12.columns = ["ccc_funded"]
-df12['ccc_funded'] = pd.to_numeric(df12['ccc_funded'], errors='coerce').fillna(0).astype(int)
+df12.columns = ["ccc_funded", "Date"]
+df12['ccc_funded'] = df12['ccc_funded'].astype(int)
 
-rows13 = run_query("select count(distinct id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded'")
+rows13 = run_query("select count(distinct id), TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded' group by DATE")
 df13 = pd.DataFrame(rows13)
-df13.columns = ["evergreen_funded"]
-df13['evergreen_funded'] = pd.to_numeric(df13['evergreen_funded'], errors='coerce').fillna(0).astype(int)
+df13.columns = ["evergreen_funded", "Date"]
+df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
 
-rows14 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(closedate)=month(current_date) and year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c order by count(distinct a.id) desc;")
+rows14 = run_query("select TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK, b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c, DATE;")
 df14 = pd.DataFrame(rows14)
 df14.columns += 1
-df14.index = df14.index + 1
-df14.insert(0, "Rank", df14.index)
-df14.columns = ["Rank","Agent Name", "Funded"]
-df14['Funded']= pd.to_numeric(df14['Funded'], errors='coerce').fillna(0).astype(int)
+#df14.index = df14.index + 1
+#df14.insert(0, "Rank", df14.index)
+df14.columns = ["Date","Rank","Agent Name", "Funded"]
+df14['Funded']=df14['Funded'].astype(int)
 
-rows15 = run_query("select b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where month(funding_date_new__c)=month(current_date) and year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name order by count(distinct a.id) desc ;")
+rows15 = run_query("select TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK,b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name, DATE;")
 df15 = pd.DataFrame(rows15)
 df15.columns += 1
-df15.index = df15.index + 1
-df15.insert(0, "Rank", df15.index)
-df15.columns = ["Rank","Agent Name", "Funded"]
-df15['Funded']= pd.to_numeric(df15['Funded'], errors='coerce').fillna(0).astype(int)
+#df15.index = df15.index + 1
+#df15.insert(0, "Rank", df15.index)
+df15.columns = ["Date","Rank","Agent Name", "Funded"]
+df15['Funded']=df15['Funded'].astype(int)
 
 #markdown
 hide_streamlit_style = """
@@ -160,19 +161,62 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-html_str = f"""
-<h1 style='text-align: center; color: white;'>{month} {year}</h1>
-"""
-st.markdown(html_str, unsafe_allow_html=True)
-
 hide_table_row_index = """
             <style>
             thead tr th:first-child {display:none}
             tbody th {display:none}
            </style>
             """
+
+df['Date'] =  pd.to_datetime(df['Date'])
+df2['Date'] = pd.to_datetime(df2['Date'])
+df3['Date'] = pd.to_datetime(df3['Date'])
+df4['Date'] = pd.to_datetime(df4['Date'])
+df5['Date'] = pd.to_datetime(df5['Date'])
+df6['Date'] = pd.to_datetime(df6['Date'])
+df7['Date'] = pd.to_datetime(df7['Date'])
+df8['Date'] = pd.to_datetime(df8['Date'])
+df9['Date'] = pd.to_datetime(df9['Date'])
+df10['Date'] = pd.to_datetime(df10['Date'])
+df11['Date'] = pd.to_datetime(df11['Date'])
+df12['Date'] = pd.to_datetime(df12['Date'])
+df13['Date'] = pd.to_datetime(df13['Date'])
+df14['Date'] = pd.to_datetime(df14['Date'])
+df15['Date'] = pd.to_datetime(df15['Date'])
+
+month_filter = st.sidebar.radio(
+    'Month:',
+    pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').unique()
+)
+
+selected_month = pd.to_datetime(month_filter).strftime("%B")
+selected_year = pd.to_datetime(month_filter).year
+
+# HTML string for the title
+html_str = f"""
+<h1 style='text-align: center; color: white;'>{selected_month} {selected_year}</h1>
+"""
+st.markdown(html_str, unsafe_allow_html=True)
+
+filtered_df_1 = df[df['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_2 = df2[df2['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_3 = df3[df3['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_4 = df4[df4['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_5 = df5[df5['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_6 = df6[df6['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_7 = df7[df7['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_8 = df8[df8['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_12 = df12[df12['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_13 = df13[df13['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_14 = df14[df14['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_15 = df15[df15['Date'].dt.strftime('%B %Y') == month_filter]
+
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
+
 
 if selected_option == "EFS":
    
@@ -180,64 +224,64 @@ if selected_option == "EFS":
 
    with col1:
         st.subheader('Total EFS Funded')
-        st.metric("label3",df3['Total_EFS'].iloc[0], label_visibility="collapsed")
+        st.metric("label3",filtered_df_3['Total_EFS'].iloc[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
-        st.table(df5)
+        st.table(filtered_df_5[["Team", "Lead", "Funded"]])
 
    with col2:
         st.subheader('Top EFS Agents')
-        st.table(df)
+        st.table(filtered_df_1[["Rank","Agent Name", "Funded"]].head(10))
   
 elif selected_option == "Fundies":
    col3, col4 = st.columns([4,4]) 
 
    with col3:
         st.subheader('Total FDN Funded')
-        st.metric("label2", df4['Total_FDN'].iloc[0], label_visibility="collapsed")
+        st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
         st.markdown(hide_table_row_index, unsafe_allow_html=True)
-        st.table(df6)
+        st.table(filtered_df_6[["Team", "Lead", "Funded"]])
 
    with col4:
         st.subheader('Top Fundie Agents')
-        st.table(df2)
+        st.table(filtered_df_2[["Rank","Agent Name", "Funded"]].head(10))
 
 elif selected_option == "CSR Declines":
    col5, col6 = st.columns([4,4])  
   
    with col5:
           st.subheader('Total CSR Decline Funded')
-          st.metric("label1",df9['Total_DF'].iloc[0], label_visibility="collapsed")
+          st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
-          st.table(df8)
+          st.table(filtered_df_8[["Team", "Lead", "Funded"]])
 
    with col6:
           st.subheader('Top CSR Decline Agents')
-          st.table(df7)
+          st.table(filtered_df_7[["Rank","Agent Name", "Funded"]].head(10))
 
 elif selected_option == "Progressa & Lendful Funded":
     col10, col11  = st.columns(2)
     
     with col10:
          #st.subheader('Total Progressa Funded')
-         st.metric("Total Progressa Funded",df10['Prog_funded'])
+         st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'])
     with col11:
-         st.metric('Total Lendful Funded',df11['Lend_funded'])
+         st.metric('Total Lendful Funded',filtered_df_11['Lend_funded'])
      
 elif selected_option == "CCC & Evergreen Funded":
     col12, col13 = st.columns([4,4])
     
     with col12:
          #st.subheader("Total CCC Funded")
-         st.metric("Total CCC Funded",df12['ccc_funded'],label_visibility="visible")
+         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
          st.subheader("Top CCC Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
-         st.table(df14)
+         st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
          
     with col13:
-         st.metric('Total Evergreen Funded',df13['evergreen_funded'])   
+         st.metric('Total Evergreen Funded',filtered_df_13['evergreen_funded'])   
          st.subheader("Top Evergreen Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
-         st.table(df15) 
+         st.table(filtered_df_15[["Rank","Agent Name", "Funded"]])
         
 #Display next refresh time and logo    
 col7, col8, col9 = st.columns([1.5,0.25,0.365])
@@ -251,6 +295,7 @@ with col8:
     st.write("")
 with col9:
     st.image("logo.png")
+
 
 css = '''
       <style>
