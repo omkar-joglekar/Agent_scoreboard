@@ -212,6 +212,17 @@ df25.columns += 1
 df25.columns = ["Rank","Agent Name", "Funded", "Date"]
 df25['Funded'] = df25['Funded'].astype(int)
 
+rows26 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 1 FDN' group by Agents, Date;")
+df26=pd.DataFrame(rows26)
+df26.columns += 1
+df26.columns = ["Rank","Agent Name", "Funded", "Date"]
+df26['Funded'] = df26['Funded'].astype(int)
+
+rows27 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 2 FDN' group by Agents, Date;")
+df27=pd.DataFrame(rows27)
+df27.columns += 1
+df27.columns = ["Rank","Agent Name", "Funded", "Date"]
+df27['Funded'] = df27['Funded'].astype(int)
 #markdown
 hide_streamlit_style = """
             <style>
@@ -253,6 +264,8 @@ df22['Date'] = pd.to_datetime(df22['Date'])
 df23['Date'] = pd.to_datetime(df23['Date'])
 df24['Date'] = pd.to_datetime(df24['Date'])
 df25['Date'] = pd.to_datetime(df25['Date'])
+df26['Date'] = pd.to_datetime(df26['Date'])
+df27['Date'] = pd.to_datetime(df27['Date'])
 month_filter = st.sidebar.radio(
     'Month:',
     pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').unique()
@@ -292,6 +305,8 @@ filtered_df_22 = df22[df22['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_23 = df23[df23['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_24 = df24[df24['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_25 = df25[df25['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_26 = df26[df26['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_27 = df27[df27['Date'].dt.strftime('%B %Y') == month_filter]
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
@@ -426,15 +441,36 @@ elif selected_option == "Fundies":
          st.subheader('Top FDN Agents')
          st.table(filtered_df_2[["Rank","Agent Name", "Funded"]].head(10))
 elif selected_option == "CSR Declines":
-   col5, col6 = st.columns([4,4])  
-  
-   with col5:
+    radio = st.radio("Team:",('Team 1','Team 2', 'All'),horizontal=True)
+    col5, col6 = st.columns([4,4])  
+    if radio == 'Team 1':
+        with col5:
           st.subheader('Total CSR Decline Funded')
           st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
           st.markdown(hide_table_row_index, unsafe_allow_html=True)
           st.table(filtered_df_8[["Team", "Lead", "Funded"]])
 
-   with col6:
+        with col6:
+          st.subheader('Top Team 1 Agents')
+          st.table(filtered_df_26[["Rank","Agent Name", "Funded"]].head(10))
+    elif radio =='Team 2':
+        with col5:
+          st.subheader('Total CSR Decline Funded')
+          st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.table(filtered_df_8[["Team", "Lead", "Funded"]])
+
+        with col6:
+          st.subheader('Top Team 2 Agents')
+          st.table(filtered_df_27[["Rank","Agent Name", "Funded"]].head(10))
+    else:
+        with col5:
+          st.subheader('Total CSR Decline Funded')
+          st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.table(filtered_df_8[["Team", "Lead", "Funded"]])
+
+        with col6:
           st.subheader('Top CSR Decline Agents')
           st.table(filtered_df_7[["Rank","Agent Name", "Funded"]].head(10))
 
