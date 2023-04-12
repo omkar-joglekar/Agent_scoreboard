@@ -176,6 +176,12 @@ df19.columns += 1
 df19.columns = ["Rank","Agent Name", "Funded", "Date"]
 df19['Funded'] = df19['Funded'].astype(int)
 
+rows20 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' group by Agents, Date;")
+df20=pd.DataFrame(rows20)
+df20.columns += 1
+df20.columns = ["Rank","Agent Name", "Funded", "Date"]
+df20['Funded'] = df20['Funded'].astype(int)
+
 #markdown
 hide_streamlit_style = """
             <style>
@@ -211,6 +217,8 @@ df16['Date'] = pd.to_datetime(df16['Date'])
 df17['Date'] = pd.to_datetime(df17['Date'])
 df18['Date'] = pd.to_datetime(df18['Date'])
 df19['Date'] = pd.to_datetime(df19['Date'])
+df20['Date'] = pd.to_datetime(df20['Date'])
+
 month_filter = st.sidebar.radio(
     'Month:',
     pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').unique()
@@ -244,13 +252,15 @@ filtered_df_16 = df16[df16['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_17 = df17[df17['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_18 = df18[df18['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_19 = df19[df19['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_20 = df20[df20['Date'].dt.strftime('%B %Y') == month_filter]
+
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
 
 if selected_option == "EFS":
    
-   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5'),horizontal=True) 
+   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'All Teams'),horizontal=True) 
    col1, col2 = st.columns([4,4])
    if radio == 'Team 1':
        
@@ -303,8 +313,17 @@ if selected_option == "EFS":
 
       with col2:
            st.subheader('Top Team 5 Agents')
-           st.table(filtered_df_19[["Rank","Agent Name", "Funded"]].head(10)) 
-           
+           st.table(filtered_df_19[["Rank","Agent Name", "Funded"]].head(10))
+   else:
+      with col1:
+            st.subheader('Total EFS Funded')
+            st.metric("label3",filtered_df_3['Total_EFS'].iloc[0], label_visibility="collapsed")
+            st.markdown(hide_table_row_index, unsafe_allow_html=True)
+            st.table(filtered_df_5[["Team", "Lead", "Funded"]])
+
+      with col2:
+            st.subheader('Top EFS Agents')
+            st.table(filtered_df_20[["Rank","Agent Name", "Funded"]].head(10))      
 elif selected_option == "Fundies":
    col3, col4 = st.columns([4,4]) 
 
