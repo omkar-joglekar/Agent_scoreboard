@@ -479,7 +479,7 @@ elif selected_option == "Progressa & Lendful Funded":
     
     with col10:
          #st.subheader('Total Progressa Funded')
-         st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'])
+         st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'].iloc[1])
     with col11:
          st.metric('Total Lendful Funded',filtered_df_11['Lend_funded'])
      
