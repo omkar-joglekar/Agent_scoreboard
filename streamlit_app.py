@@ -119,7 +119,7 @@ df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 rows10 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded' group by DATE;")
 df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded", "Date"]
-df10['Prog_funded'] = df10['Prog_funded'].astype(int)
+df10['Prog_funded'] = df10['Prog_funded'].apply(lambda x: '{:,.0f}'.format(x))
 
 rows11 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded' group by DATE;")
 df11 = pd.DataFrame(rows11)
@@ -479,7 +479,7 @@ elif selected_option == "Progressa & Lendful Funded":
     
     with col10:
          #st.subheader('Total Progressa Funded')
-         st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'])
+         st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'].iloc[0])
     with col11:
          st.metric('Total Lendful Funded',filtered_df_11['Lend_funded'])
      
