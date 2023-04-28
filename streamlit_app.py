@@ -119,7 +119,7 @@ df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 rows10 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded' group by DATE;")
 df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded", "Date"]
-df10['Prog_funded'] = df10['Prog_funded'].apply(lambda x: '{:,.0f}'.format(x))
+df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
 rows11 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded' group by DATE;")
 df11 = pd.DataFrame(rows11)
