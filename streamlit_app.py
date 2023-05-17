@@ -56,7 +56,7 @@ def run_query(query):
         return cur.fetchall()
     
 #Queries
-rows = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 1' group by Agents, Date;")
+rows = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 1' group by Agent, Date;")
 df=pd.DataFrame(rows)
 df.columns += 1
 #df.index = df.index + 1
@@ -64,7 +64,7 @@ df.columns += 1
 df.columns = ["Rank","Agent Name", "Funded", "Date"]
 df['Funded'] = df['Funded'].astype(int)
 
-rows2 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='FDN' group by Agents, Date;")
+rows2 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='FDN' group by Agent, Date;")
 df2=pd.DataFrame(rows2)
 df2.columns += 1
 #df2.index = df2.index + 1
@@ -82,21 +82,21 @@ df4=pd.DataFrame(rows4)
 df4.columns = ["Total_FDN", "Date"]
 df4['Total_FDN'] = df4['Total_FDN'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows5 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENTS, Date order by 1;")
+rows5 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENT, Date order by 1;")
 df5=pd.DataFrame(rows5)
 df5.columns += 1
 df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded", "Date"]
 df5['Funded'] = df5['Funded'].astype(int)
 
-rows6 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENTS, Date order by 1;")
+rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by 1;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded", "Date"]
 df6['Funded'] = df6['Funded'].astype(int)
 
-rows7 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' group by Agents, Date;")
+rows7 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' group by Agent, Date;")
 df7=pd.DataFrame(rows7)
 df7.columns += 1
 #df7.index = df7.index + 1
@@ -104,7 +104,7 @@ df7.columns += 1
 df7.columns = ["Rank","Agent Name", "Funded", "Date"]
 df7['Funded'] = df7['Funded'].astype(int)
 
-rows8 = run_query("select TEAM, AGENTS, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENTS, Date order by 1;")
+rows8 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='DECLINEFUNDED' group by TEAM, AGENT, Date order by 1;")
 df8=pd.DataFrame(rows8)
 df8.columns += 1
 df8.index = df8.index + 1
@@ -152,73 +152,73 @@ df15.columns += 1
 df15.columns = ["Date","Rank","Agent Name", "Funded"]
 df15['Funded']=df15['Funded'].astype(int)
 
-rows16 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 2' group by Agents, Date;")
+rows16 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 2' group by Agent, Date;")
 df16=pd.DataFrame(rows16)
 df16.columns += 1
 df16.columns = ["Rank","Agent Name", "Funded", "Date"]
 df16['Funded'] = df16['Funded'].astype(int)
 
-rows17 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 3' group by Agents, Date;")
+rows17 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 3' group by Agent, Date;")
 df17=pd.DataFrame(rows17)
 df17.columns += 1
 df17.columns = ["Rank","Agent Name", "Funded", "Date"]
 df17['Funded'] = df17['Funded'].astype(int)
 
-rows18 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 4' group by Agents, Date;")
+rows18 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 4' group by Agent, Date;")
 df18=pd.DataFrame(rows18)
 df18.columns += 1
 df18.columns = ["Rank","Agent Name", "Funded", "Date"]
 df18['Funded'] = df18['Funded'].astype(int)
 
-rows19 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 5' group by Agents, Date;")
+rows19 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 5' group by Agent, Date;")
 df19=pd.DataFrame(rows19)
 df19.columns += 1
 df19.columns = ["Rank","Agent Name", "Funded", "Date"]
 df19['Funded'] = df19['Funded'].astype(int)
 
-rows20 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' group by Agents, Date;")
+rows20 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' group by Agent, Date;")
 df20=pd.DataFrame(rows20)
 df20.columns += 1
 df20.columns = ["Rank","Agent Name", "Funded", "Date"]
 df20['Funded'] = df20['Funded'].astype(int)
 
-rows21 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 1' group by Agents, Date;")
+rows21 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 1' group by Agent, Date;")
 df21=pd.DataFrame(rows21)
 df21.columns += 1
 df21.columns = ["Rank","Agent Name", "Funded", "Date"]
 df21['Funded'] = df21['Funded'].astype(int)
 
-rows22 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 2' group by Agents, Date;")
+rows22 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 2' group by Agent, Date;")
 df22=pd.DataFrame(rows22)
 df22.columns += 1
 df22.columns = ["Rank","Agent Name", "Funded", "Date"]
 df22['Funded'] = df22['Funded'].astype(int)
 
-rows23 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 3' group by Agents, Date;")
+rows23 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 3' group by Agent, Date;")
 df23=pd.DataFrame(rows23)
 df23.columns += 1
 df23.columns = ["Rank","Agent Name", "Funded", "Date"]
 df23['Funded'] = df23['Funded'].astype(int)
 
-rows24 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 4' group by Agents, Date;")
+rows24 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 4' group by Agent, Date;")
 df24=pd.DataFrame(rows24)
 df24.columns += 1
 df24.columns = ["Rank","Agent Name", "Funded", "Date"]
 df24['Funded'] = df24['Funded'].astype(int)
 
-rows25 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 5' group by Agents, Date;")
+rows25 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 5' group by Agent, Date;")
 df25=pd.DataFrame(rows25)
 df25.columns += 1
 df25.columns = ["Rank","Agent Name", "Funded", "Date"]
 df25['Funded'] = df25['Funded'].astype(int)
 
-rows26 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 1 FDN' group by Agents, Date;")
+rows26 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 1 FDN' group by Agent, Date;")
 df26=pd.DataFrame(rows26)
 df26.columns += 1
 df26.columns = ["Rank","Agent Name", "Funded", "Date"]
 df26['Funded'] = df26['Funded'].astype(int)
 
-rows27 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agents, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 2 FDN' group by Agents, Date;")
+rows27 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' and Team='Team 2 FDN' group by Agent, Date;")
 df27=pd.DataFrame(rows27)
 df27.columns += 1
 df27.columns = ["Rank","Agent Name", "Funded", "Date"]
