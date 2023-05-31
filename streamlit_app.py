@@ -508,7 +508,7 @@ with col7:
   else:
     st.write(f"Next refresh in {hours} hour{'s' if hours != 1 else ''} {minutes} minute{'s' if minutes != 1 else ''} ({next_refresh_time})")
 with col8:
-    st.write("")
+    st.write(" ")
 with col9:
     st.image("logo.png")
 
