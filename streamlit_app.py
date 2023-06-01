@@ -442,7 +442,7 @@ elif selected_option == "Fundies":
          st.subheader('Top FDN Agents')
          st.table(filtered_df_2[["Rank","Agent Name", "Funded"]].head(10))
 elif selected_option == "CSR Declines":
-    radio = st.radio("Team:",('Team 1', 'Team 2'),horizontal=True)
+    radio = st.radio("Team:",('Team 1', 'Team 2', 'All Teams'),horizontal=True)
     col5, col6 = st.columns([4,4])  
     if radio == 'Team 1':
         with col5:
