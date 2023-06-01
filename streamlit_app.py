@@ -442,7 +442,7 @@ elif selected_option == "Fundies":
          st.subheader('Top FDN Agents')
          st.table(filtered_df_2[["Rank","Agent Name", "Funded"]].head(10))
 elif selected_option == "CSR Declines":
-    radio = st.radio("Team:",('Team 1', 'All Teams'),horizontal=True)
+    radio = st.radio("Team:",('Team 1', 'Team 2'),horizontal=True)
     col5, col6 = st.columns([4,4])  
     if radio == 'Team 1':
         with col5:
@@ -454,15 +454,15 @@ elif selected_option == "CSR Declines":
         with col6:
           st.subheader('Top Team 1 Agents')
           st.table(filtered_df_26[["Rank","Agent Name", "Funded"]].head(10))
-    #elif radio =='Team 2':
-       # with col5:
-         # st.subheader('Total CSR Decline Funded')
-         # st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
-         # st.markdown(hide_table_row_index, unsafe_allow_html=True)
-         # st.table(filtered_df_8[["Team", "Lead", "Funded"]])
+    elif radio =='Team 2':
+        with col5:
+          st.subheader('Total CSR Decline Funded')
+          st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
+          st.markdown(hide_table_row_index, unsafe_allow_html=True)
+          st.table(filtered_df_8[["Team", "Lead", "Funded"]])
 
-        #with col6:
-          #st.subheader('Top Team 2 Agents')
+        with col6:
+          st.write('')
           #st.table(filtered_df_27[["Rank","Agent Name", "Funded"]].head(10))
     else:
         with col5:
