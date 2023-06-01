@@ -462,7 +462,7 @@ elif selected_option == "CSR Declines":
           st.table(filtered_df_8[["Team", "Lead", "Funded"]])
 
         with col6:
-          st.write('')
+          st.write('Top Team 2 Agents')
           st.table(filtered_df_27[["Rank","Agent Name", "Funded"]].head(10))
     else:
         with col5:
