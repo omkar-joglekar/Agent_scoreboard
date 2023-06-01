@@ -473,7 +473,7 @@ elif selected_option == "CSR Declines":
 
         with col6:
           st.subheader('Top CSR Decline Agents')
-          #st.table(filtered_df_7[["Rank","Agent Name", "Funded"]].head(10))
+          st.table(filtered_df_7[["Rank","Agent Name", "Funded"]].head(10))
 
 elif selected_option == "Progressa & Lendful Funded":
     col10, col11  = st.columns(2)
