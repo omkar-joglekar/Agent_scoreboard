@@ -510,7 +510,7 @@ elif selected_option == "Fundies":
        with col4:
         st.subheader('Top Team 5 Agents')
         st.table(filtered_df_25[["Rank","Agent Name", "Funded"]].head(10))
-    elif radio =='Team 6':
+   elif radio =='Team 6':
        with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
@@ -520,7 +520,7 @@ elif selected_option == "Fundies":
        with col4:
         st.subheader('Top Team 6 Agents')
         st.table(filtered_df_31[["Rank","Agent Name", "Funded"]].head(10))
-    elif radio =='Team 7':
+   elif radio =='Team 7':
        with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
@@ -531,7 +531,7 @@ elif selected_option == "Fundies":
         st.subheader('Top Team 7 Agents')
         st.table(filtered_df_32[["Rank","Agent Name", "Funded"]].head(10))
 
-    elif radio =='Team 8':
+   elif radio =='Team 8':
        with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
