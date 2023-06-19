@@ -88,6 +88,8 @@ df5.columns += 1
 df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded", "Date"]
 df5['Funded'] = df5['Funded'].astype(int)
+distinct_team_EFS = df5['Team'].unique().tolist()
+
 
 rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by 1;")
 df6=pd.DataFrame(rows6)
@@ -95,6 +97,7 @@ df6.columns += 1
 df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded", "Date"]
 df6['Funded'] = df6['Funded'].astype(int)
+distinct_team_FDN = df6['Team'].unique().tolist()
 
 rows7 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' group by Agent, Date;")
 df7=pd.DataFrame(rows7)
@@ -266,7 +269,7 @@ hide_streamlit_style = """
             MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             </style>
-           """
+            """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 hide_table_row_index = """
@@ -362,7 +365,7 @@ selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
 if selected_option == "EFS":
    
-   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'All Teams'),horizontal=True) 
+   radio = st.radio("Team:",(*distinct_team_EFS, 'All Teams') ,horizontal=True) 
    col1, col2 = st.columns([4,4])
    if radio == 'Team 1':
        
@@ -458,7 +461,7 @@ if selected_option == "EFS":
             st.subheader('Top EFS Agents')
             st.table(filtered_df_20[["Rank","Agent Name", "Funded"]].head(10))      
 elif selected_option == "Fundies":
-   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7','Team 8','All Teams'),horizontal=True) 
+   radio = st.radio("Team:",(*distinct_team_FDN, 'All Teams'), horizontal=True)
    col3, col4 = st.columns([4,4]) 
    if radio == 'Team 1':
        with col3:
