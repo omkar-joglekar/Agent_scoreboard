@@ -445,7 +445,7 @@ if selected_option == "EFS":
            st.table(filtered_df_5[["Team", "Lead", "Funded"]])
 
       with col2:
-           st.subheader('Top Team 7 Agents')
+           st.subheader('Top Team 8 Agents')
            st.table(filtered_df_30[["Rank","Agent Name", "Funded"]].head(10))      
    else:
       with col1:
