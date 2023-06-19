@@ -243,13 +243,13 @@ df30.columns = ["Rank","Agent Name", "Funded", "Date"]
 df30['Funded'] = df30['Funded'].astype(int)
 
 #markdown
-#hide_streamlit_style = """
-            #<style>
-            #MainMenu {visibility: hidden;}
-            #footer {visibility: hidden;}
-           # </style>
-           #"""
-#st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+hide_streamlit_style = """
+            <style>
+            MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+           """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 hide_table_row_index = """
             <style>
