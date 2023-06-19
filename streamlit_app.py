@@ -225,7 +225,7 @@ df27.columns = ["Rank","Agent Name", "Funded", "Date"]
 df27['Funded'] = df27['Funded'].astype(int)
 
 rows28 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 6' group by Agent, Date;")
-df28=pd.DataFrame(rows27)
+df28=pd.DataFrame(rows28)
 df28.columns += 1
 df28.columns = ["Rank","Agent Name", "Funded", "Date"]
 df28['Funded'] = df28['Funded'].astype(int)
