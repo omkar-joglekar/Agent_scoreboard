@@ -314,7 +314,7 @@ selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
 if selected_option == "EFS":
    
-   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'All Teams'),horizontal=True) 
+   radio = st.radio("Team:",(filtered_df_5['Team'], 'All Teams'),horizontal=True) 
    col1, col2 = st.columns([4,4])
    if radio == 'Team 1':
        
