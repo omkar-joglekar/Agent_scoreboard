@@ -458,7 +458,7 @@ if selected_option == "EFS":
             st.subheader('Top EFS Agents')
             st.table(filtered_df_20[["Rank","Agent Name", "Funded"]].head(10))      
 elif selected_option == "Fundies":
-   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'All Teams'),horizontal=True) 
+   radio = st.radio("Team:",('Team 1','Team 2','Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7','Team 8','All Teams'),horizontal=True) 
    col3, col4 = st.columns([4,4]) 
    if radio == 'Team 1':
        with col3:
