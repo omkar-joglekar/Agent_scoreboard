@@ -88,7 +88,7 @@ df5.columns += 1
 df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded", "Date"]
 df5['Funded'] = df5['Funded'].astype(int)
-distinct_team_EFS = df5['Team'].unique().tolist()
+
 
 
 rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by 1;")
@@ -331,6 +331,7 @@ filtered_df_2 = df2[df2['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_3 = df3[df3['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_4 = df4[df4['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_5 = df5[df5['Date'].dt.strftime('%B %Y') == month_filter]
+distinct_team_EFS = filtered_df_5['Team'].unique().tolist()
 filtered_df_6 = df6[df6['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_7 = df7[df7['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_8 = df8[df8['Date'].dt.strftime('%B %Y') == month_filter]
@@ -359,6 +360,8 @@ filtered_df_30 = df30[df30['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_31 = df31[df31['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_32 = df32[df32['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_33 = df33[df33['Date'].dt.strftime('%B %Y') == month_filter]
+
+
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
 
