@@ -333,6 +333,7 @@ filtered_df_6 = df6[df6['Date'].dt.strftime('%B %Y') == month_filter]
 distinct_team_FDN = filtered_df_6['Team'].unique().tolist()
 filtered_df_7 = df7[df7['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_8 = df8[df8['Date'].dt.strftime('%B %Y') == month_filter]
+distinct_team_CSR = filtered_df_8['Team'].unique().tolist()
 filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
@@ -556,9 +557,9 @@ elif selected_option == "Fundies":
          st.subheader('Top FDN Agents')
          st.table(filtered_df_2[["Rank","Agent Name", "Funded"]].head(10))
 elif selected_option == "CSR Declines":
-    radio = st.radio("Team:",('Team 1', 'Team 2', 'All Teams'),horizontal=True)
+    radio = st.radio("Team:",(*distinct_team_CSR, 'All Teams'),horizontal=True)
     col5, col6 = st.columns([4,4])  
-    if radio == 'Team 1':
+    if radio == 'Team 1 FDN':
         with col5:
           st.subheader('Total CSR Decline Funded')
           st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
@@ -568,7 +569,7 @@ elif selected_option == "CSR Declines":
         with col6:
           st.subheader('Top Team 1 Agents')
           st.table(filtered_df_26[["Rank","Agent Name", "Funded"]].head(10))
-    elif radio =='Team 2':
+    elif radio =='Team 2 FDN':
         with col5:
           st.subheader('Total CSR Decline Funded')
           st.metric("label1",filtered_df_9['Total_DF'].iloc[0], label_visibility="collapsed")
