@@ -89,15 +89,12 @@ df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded", "Date"]
 df5['Funded'] = df5['Funded'].astype(int)
 
-
-
 rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by 1;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
 df6.columns = ["Team", "Lead", "Funded", "Date"]
 df6['Funded'] = df6['Funded'].astype(int)
-distinct_team_FDN = df6['Team'].unique().tolist()
 
 rows7 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), Date from SCOREBOARD_MAR2023 where type='DECLINEFUNDED' group by Agent, Date;")
 df7=pd.DataFrame(rows7)
@@ -333,6 +330,7 @@ filtered_df_4 = df4[df4['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_5 = df5[df5['Date'].dt.strftime('%B %Y') == month_filter]
 distinct_team_EFS = filtered_df_5['Team'].unique().tolist()
 filtered_df_6 = df6[df6['Date'].dt.strftime('%B %Y') == month_filter]
+distinct_team_FDN = filtered_df_6['Team'].unique().tolist()
 filtered_df_7 = df7[df7['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_8 = df8[df8['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
