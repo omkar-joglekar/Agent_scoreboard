@@ -309,7 +309,7 @@ df30['Date'] = pd.to_datetime(df30['Date'])
 df31['Date'] = pd.to_datetime(df31['Date'])
 df32['Date'] = pd.to_datetime(df32['Date'])
 df33['Date'] = pd.to_datetime(df33['Date'])
-month_filter = st.sidebar.radio(
+month_filter = st.sidebar.selectbox(
     'Month:',
     pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').unique()
 )
