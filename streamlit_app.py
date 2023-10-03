@@ -309,12 +309,30 @@ df30['Date'] = pd.to_datetime(df30['Date'])
 df31['Date'] = pd.to_datetime(df31['Date'])
 df32['Date'] = pd.to_datetime(df32['Date'])
 df33['Date'] = pd.to_datetime(df33['Date'])
-month_filter = st.sidebar.selectbox(
-    'Month:',
-    pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').sort_values().unique()
 
-    
-)
+# Concatenate the 'Date' columns from df and df2
+dates = pd.concat([df['Date'], df2['Date']])
+
+# Convert the dates to datetime objects and format as 'Month Year'
+formatted_dates = pd.to_datetime(dates).dt.strftime('%B %Y').unique()
+
+# Define a custom sorting key function
+def custom_sort(date):
+    month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    month, year = date.split()
+    return month_order.index(month), int(year)
+
+# Sort the formatted dates using the custom sorting key function
+sorted_dates = sorted(formatted_dates, key=custom_sort)
+
+# Display the sorted dates in the selectbox
+month_filter = st.sidebar.selectbox('Month:', sorted_dates)
+
+
+#month_filter = st.sidebar.selectbox(
+#    'Month:',
+#    pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').sort_values().unique()
+#)
 
 selected_month = pd.to_datetime(month_filter).strftime("%B")
 selected_year = pd.to_datetime(month_filter).year
