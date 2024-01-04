@@ -136,13 +136,13 @@ df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded", "Date"]
 df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
 
-rows14 = run_query("select TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK, b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c, DATE;")
-df14 = pd.DataFrame(rows14)
-df14.columns += 1
+#rows14 = run_query("select TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK, b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c, DATE;")
+#df14 = pd.DataFrame(rows14)
+#df14.columns += 1
 #df14.index = df14.index + 1
 #df14.insert(0, "Rank", df14.index)
-df14.columns = ["Date","Rank","Agent Name", "Funded"]
-df14['Funded']=df14['Funded'].astype(int)
+#df14.columns = ["Date","Rank","Agent Name", "Funded"]
+#df14['Funded']=df14['Funded'].astype(int)
 
 rows15 = run_query("select TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK,b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name, DATE;")
 df15 = pd.DataFrame(rows15)
@@ -289,7 +289,7 @@ df10['Date'] = pd.to_datetime(df10['Date'])
 #df11['Date'] = pd.to_datetime(df11['Date'])
 df12['Date'] = pd.to_datetime(df12['Date'])
 df13['Date'] = pd.to_datetime(df13['Date'])
-df14['Date'] = pd.to_datetime(df14['Date'])
+#df14['Date'] = pd.to_datetime(df14['Date'])
 df15['Date'] = pd.to_datetime(df15['Date'])
 df16['Date'] = pd.to_datetime(df16['Date'])
 df17['Date'] = pd.to_datetime(df17['Date'])
@@ -359,7 +359,7 @@ filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
 #filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_12 = df12[df12['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_13 = df13[df13['Date'].dt.strftime('%B %Y') == month_filter]
-filtered_df_14 = df14[df14['Date'].dt.strftime('%B %Y') == month_filter]
+#filtered_df_14 = df14[df14['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_15 = df15[df15['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_16 = df16[df16['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_17 = df17[df17['Date'].dt.strftime('%B %Y') == month_filter]
@@ -616,8 +616,8 @@ elif selected_option == "Progressa & Lendful Funded":
     with col10:
          #st.subheader('Total Progressa Funded')
          st.metric("Total Progressa Funded",filtered_df_10['Prog_funded'])
-    with col11:
-         st.metric('Total Lendful Funded',filtered_df_11['Lend_funded'])
+    #with col11:
+         #st.metric('Total Lendful Funded',filtered_df_11['Lend_funded'])
      
 elif selected_option == "CCC & Evergreen Funded":
     col12, col13 = st.columns([4,4])
@@ -627,7 +627,7 @@ elif selected_option == "CCC & Evergreen Funded":
          st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
          st.subheader("Top CCC Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
-         st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
+         #st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
          
     with col13:
          st.metric('Total Evergreen Funded',filtered_df_13['evergreen_funded'])   
