@@ -121,10 +121,10 @@ df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded", "Date"]
 df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 
-rows11 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded' group by DATE;")
-df11 = pd.DataFrame(rows11)
-df11.columns = ["Lend_funded", "Date"]
-df11['Lend_funded'] = df11['Lend_funded'].astype(int)
+#rows11 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Lendful' and stagename='Funded' group by DATE;")
+#df11 = pd.DataFrame(rows11)
+#df11.columns = ["Lend_funded", "Date"]
+#df11['Lend_funded'] = df11['Lend_funded'].astype(int)
 
 rows12 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%' group by DATE")
 df12 = pd.DataFrame(rows12)
@@ -286,7 +286,7 @@ df7['Date'] = pd.to_datetime(df7['Date'])
 df8['Date'] = pd.to_datetime(df8['Date'])
 df9['Date'] = pd.to_datetime(df9['Date'])
 df10['Date'] = pd.to_datetime(df10['Date'])
-df11['Date'] = pd.to_datetime(df11['Date'])
+#df11['Date'] = pd.to_datetime(df11['Date'])
 df12['Date'] = pd.to_datetime(df12['Date'])
 df13['Date'] = pd.to_datetime(df13['Date'])
 df14['Date'] = pd.to_datetime(df14['Date'])
@@ -356,7 +356,7 @@ filtered_df_8 = df8[df8['Date'].dt.strftime('%B %Y') == month_filter]
 distinct_team_CSR = filtered_df_8['Team'].unique().tolist()
 filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
-filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
+#filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_12 = df12[df12['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_13 = df13[df13['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_14 = df14[df14['Date'].dt.strftime('%B %Y') == month_filter]
