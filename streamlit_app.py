@@ -312,6 +312,9 @@ df33['Date'] = pd.to_datetime(df33['Date'])
 
 dates = pd.concat([df['Date'], df2['Date']])
 
+# Concatenate the 'Date' columns from df and df2
+dates = pd.concat([df['Date'], df2['Date']])
+
 # Convert the dates to datetime objects and format as 'Month Year'
 formatted_dates = pd.to_datetime(dates).dt.strftime('%B %Y').unique()
 
@@ -321,20 +324,22 @@ def custom_sort(date):
     month_year = pd.to_datetime(date).strftime('%B %Y')
     return month_order.index(month_year.split()[0]), int(month_year.split()[1])
 
-# Sort the formatted dates using the custom sorting key function
-sorted_dates = sorted(formatted_dates, key=custom_sort)
-
-# Display the sorted dates in the Month radio button filter
-month_filter = st.sidebar.radio('Month:', sorted_dates)
-
 # Extract unique years for the Year radio button filter
 unique_years = sorted(set(pd.to_datetime(formatted_dates).year))
 
 # Display the Year radio button filter
 year_filter = st.sidebar.radio('Year:', unique_years)
 
+
+# Sort the formatted dates using the custom sorting key function
+sorted_dates = sorted(formatted_dates, key=custom_sort)
+
+# Display only the month in the Month radio button filter
+month_options = [pd.to_datetime(date).strftime('%B') for date in sorted_dates]
+month_filter = st.sidebar.radio('Month:', month_options)
+
 # Get selected month and year from the DataFrame
-selected_month = pd.to_datetime(month_filter).strftime("%B")
+selected_month = month_filter
 selected_year = year_filter
 
 # HTML string for the title
