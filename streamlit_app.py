@@ -340,7 +340,7 @@ def custom_sort(date):
 sorted_dates = sorted(formatted_dates, key=custom_sort)
 
 # Display the sorted dates in the selectbox
-month_filter = st.sidebar.radio('Month:', sorted_dates)
+month_filter = st.sidebar.selectbox('Month:', sorted_dates)
 
 
 #month_filter = st.sidebar.selectbox(
