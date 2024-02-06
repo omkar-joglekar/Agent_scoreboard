@@ -662,7 +662,7 @@ elif selected_option == "CCC & Evergreen Funded":
     
     with col12:
          #st.subheader("Total CCC Funded")
-         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'].fillna(0),label_visibility="visible")
+         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
          st.subheader("Top CCC Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
          #st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
