@@ -129,7 +129,7 @@ df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 rows12 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%' group by DATE")
 df12 = pd.DataFrame(rows12)
 df12.columns = ["ccc_funded", "Date"]
-df12['ccc_funded'] = df12['ccc_funded'].astype(int)
+df12['ccc_funded'] = df12['ccc_funded'].fillna(0).astype(int)
 
 rows13 = run_query("select count(distinct id), TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded' group by DATE")
 df13 = pd.DataFrame(rows13)
@@ -662,7 +662,7 @@ elif selected_option == "CCC & Evergreen Funded":
     
     with col12:
          #st.subheader("Total CCC Funded")
-         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
+         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'].fillna(0),label_visibility="visible")
          st.subheader("Top CCC Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
          #st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
