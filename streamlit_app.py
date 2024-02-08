@@ -278,6 +278,12 @@ df36.columns += 1
 df36.columns = ["Rank","Agent Name", "Funded", "Date"]
 df36['Funded'] = df36['Funded'].astype(int)
 
+#rows37 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 10' group by Agent, Date;")
+#df37=pd.DataFrame(rows37)
+#df37.columns += 1
+#df37.columns = ["Rank","Agent Name", "Funded", "Date"]
+#df37['Funded'] = df37['Funded'].astype(int)
+
 #markdown
 #hide_streamlit_style = """
             #<style>
@@ -330,6 +336,7 @@ df33['Date'] = pd.to_datetime(df33['Date'])
 df34['Date'] = pd.to_datetime(df34['Date'])
 df35['Date'] = pd.to_datetime(df35['Date'])
 df36['Date'] = pd.to_datetime(df36['Date'])
+#df37['Date'] = pd.to_datetime(df37['Date'])
 
 # Concatenate the 'Date' columns from df and df2
 dates = pd.concat([df['Date'], df2['Date']])
@@ -623,6 +630,16 @@ elif selected_option == "Fundies":
        with col4:
         st.subheader('Top Team 9 Agents')
         st.table(filtered_df_34[["Rank","Agent Name", "Funded"]].head(10))
+   elif radio =='Team 10':
+       with col3:
+        st.subheader('Total FDN Funded')
+        st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        st.table(filtered_df_6[["Team", "Lead", "Funded"]])
+
+       with col4:
+        st.subheader('Top Team 10 Agents')
+        st.table()#filtered_df_34[["Rank","Agent Name", "Funded"]].head(10))
    else:
        with col3:
          st.subheader('Total FDN Funded')
