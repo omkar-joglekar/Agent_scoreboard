@@ -82,14 +82,14 @@ df4=pd.DataFrame(rows4)
 df4.columns = ["Total_FDN", "Date"]
 df4['Total_FDN'] = df4['Total_FDN'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows5 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENT, Date order by 1;")
+rows5 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='EFS' group by TEAM, AGENT, Date order by CASE WHEN TRY_TO_NUMBER(SPLIT_PART(TEAM, ' ', 2)) IS NOT NULL THEN TRY_TO_NUMBER(SPLIT_PART(TEAM, ' ', 2)) ELSE TRY_TO_NUMBER(TEAM) end;")
 df5=pd.DataFrame(rows5)
 df5.columns += 1
 df5.index = df5.index + 1
 df5.columns = ["Team", "Lead", "Funded", "Date"]
 df5['Funded'] = df5['Funded'].astype(int)
 
-rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by 1;")
+rows6 = run_query("select TEAM, AGENT, sum(SP_F), Date from TEAMLEADS_MAR2023 where TYPE='FDN' group by TEAM, AGENT, Date order by CASE WHEN TRY_TO_NUMBER(SPLIT_PART(TEAM, ' ', 2)) IS NOT NULL THEN TRY_TO_NUMBER(SPLIT_PART(TEAM, ' ', 2)) ELSE TRY_TO_NUMBER(TEAM) end;")
 df6=pd.DataFrame(rows6)
 df6.columns += 1
 df6.index = df6.index + 1
