@@ -368,10 +368,11 @@ sorted_dates = sorted(sorted_dates, key=custom_sort)
 month_filter = st.sidebar.selectbox('Month:', sorted_dates)
 
 
-#month_filter = st.sidebar.selectbox(
-#    'Month:',
-#    pd.to_datetime(pd.concat([df['Date'], df2['Date']])).dt.strftime('%B %Y').sort_values().unique()
-#)
+# Set the default month filter to the current month
+default_month_filter = current_month_year
+
+# Display the sorted dates in the selectbox
+month_filter = st.sidebar.selectbox('Month:', sorted_dates, index=sorted_dates.index(default_month_filter))
 
 selected_month = pd.to_datetime(month_filter).strftime("%B")
 selected_year = pd.to_datetime(month_filter).year
