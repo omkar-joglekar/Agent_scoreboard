@@ -365,7 +365,7 @@ if current_month_year not in sorted_dates:
 sorted_dates = sorted(sorted_dates, key=custom_sort)    
 
 # Display the sorted dates in the selectbox
-month_filter = st.sidebar.selectbox('Month:', sorted_dates)
+#month_filter = st.sidebar.selectbox('Month:', sorted_dates)
 
 
 # Set the default month filter to the current month
