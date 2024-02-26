@@ -350,8 +350,16 @@ def custom_sort(date):
     month, year = date.split()
     return month_order.index(month), int(year)
 
-# Sort the formatted dates using the custom sorting key function
-sorted_dates = sorted(formatted_dates, key=custom_sort)
+# Get the current month and year
+current_month_year = pd.Timestamp.now().strftime('%B %Y')
+
+# Check if the current month is in the sorted_dates list, if not, append it
+if current_month_year not in sorted_dates:
+    sorted_dates.append(current_month_year)
+
+
+# Sort the dates again after appending the current month
+sorted_dates = sorted(sorted_dates, key=custom_sort)    
 
 # Display the sorted dates in the selectbox
 month_filter = st.sidebar.selectbox('Month:', sorted_dates)
