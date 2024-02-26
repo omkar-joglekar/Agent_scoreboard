@@ -350,6 +350,9 @@ def custom_sort(date):
     month, year = date.split()
     return month_order.index(month), int(year)
 
+# Sort the formatted dates using the custom sorting key function
+sorted_dates = sorted(formatted_dates, key=custom_sort)
+
 # Get the current month and year
 current_month_year = pd.Timestamp.now().strftime('%B %Y')
 
