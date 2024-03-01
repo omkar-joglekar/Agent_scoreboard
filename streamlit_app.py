@@ -703,12 +703,12 @@ elif selected_option == "Progressa & Lendful Funded":
 elif selected_option == "CCC & Evergreen Funded":
     col12, col13 = st.columns([4,4])
     
-   # with col12:
-         #st.subheader("Total CCC Funded")
-        # st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
-         #st.subheader("Top CCC Agents")
-         #st.markdown(hide_table_row_index, unsafe_allow_html=True)
-         #st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
+    with col12:
+         st.subheader("Total CCC Funded")
+         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
+         st.subheader("Top CCC Agents")
+         st.markdown(hide_table_row_index, unsafe_allow_html=True)
+         st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
          
     with col13:
          st.metric('Total Evergreen Funded',filtered_df_13['evergreen_funded'])   
