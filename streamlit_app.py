@@ -136,13 +136,13 @@ df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded", "Date"]
 df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
 
-#rows14 = run_query("select TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK, b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c, DATE;")
-#df14 = pd.DataFrame(rows14)
-#df14.columns += 1
-#df14.index = df14.index + 1
-#df14.insert(0, "Rank", df14.index)
-#df14.columns = ["Date","Rank","Agent Name", "Funded"]
-#df14['Funded']=df14['Funded'].astype(int)
+rows14 = run_query("select TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK, b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(closedate)=year(current_date) and loan_provider__c='Consumer Capital' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null group by b.name, loan_provider__c, DATE;")
+df14 = pd.DataFrame(rows14)
+df14.columns += 1
+df14.index = df14.index + 1
+df14.insert(0, "Rank", df14.index)
+df14.columns = ["Date","Rank","Agent Name", "Funded"]
+df14['Funded']=df14['Funded'].astype(int)
 
 rows15 = run_query("select TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE, DENSE_RANK() OVER (PARTITION BY DATE ORDER BY count(distinct a.id) desc) AS RANK,b.name, count(distinct a.id) from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY a left join RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.USER b on a.agent_name_opp__c=b.id where year(funding_date_new__c)=year(current_date) and funding_date_new__c is not null and loan_provider__c='Spring Financial' and recordtypename__c='Personal Loan' and stagename='Funded' and b.name is not null  group by b.name, DATE;")
 df15 = pd.DataFrame(rows15)
