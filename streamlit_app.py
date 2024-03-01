@@ -338,7 +338,6 @@ df35['Date'] = pd.to_datetime(df35['Date'])
 df36['Date'] = pd.to_datetime(df36['Date'])
 #df37['Date'] = pd.to_datetime(df37['Date'])
 
-# Concatenate the 'Date' columns from df and df2
 dates = pd.concat([df['Date'], df2['Date']])
 
 # Convert the dates to datetime objects and format as 'Month Year'
@@ -360,18 +359,11 @@ current_month_year = pd.Timestamp.now().strftime('%B %Y')
 if current_month_year not in sorted_dates:
     sorted_dates.append(current_month_year)
 
-
 # Sort the dates again after appending the current month
 sorted_dates = sorted(sorted_dates, key=custom_sort)    
 
 # Display the sorted dates in the selectbox
-#month_filter = st.sidebar.selectbox('Month:', sorted_dates)
-
-
-# Set the default month filter to the current month
 default_month_filter = current_month_year
-
-# Display the sorted dates in the selectbox
 month_filter = st.sidebar.selectbox('Month:', sorted_dates, index=sorted_dates.index(default_month_filter))
 
 selected_month = pd.to_datetime(month_filter).strftime("%B")
