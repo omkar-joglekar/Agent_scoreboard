@@ -388,9 +388,8 @@ filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
 #filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_12 = df12[df12['Date'].dt.strftime('%B %Y') == month_filter]
-if filtered_df_12.empty:
-    filtered_df_12 = pd.DataFrame({'Date': [], 'ccc_funded': []}) # Create an empty DataFrame with the required columns
-    filtered_df_12 = filtered_df_12.fillna(0)  # Fill NaN values with zero
+# Calculate the sum of 'ccc_funded' column
+ccc_funded_sum = filtered_df_12['ccc_funded'].sum() if not filtered_df_12.empty else 0
 
 
 filtered_df_13 = df13[df13['Date'].dt.strftime('%B %Y') == month_filter]
@@ -705,7 +704,7 @@ elif selected_option == "CCC & Evergreen Funded":
     
     with col12:
          st.subheader("Total CCC Funded")
-         st.metric("Total CCC Funded",filtered_df_12['ccc_funded'],label_visibility="visible")
+         st.metric("Total CCC Funded", ccc_funded_sum, label_visibility="visible")
          st.subheader("Top CCC Agents")
          st.markdown(hide_table_row_index, unsafe_allow_html=True)
          st.table(filtered_df_14[["Rank","Agent Name", "Funded"]])
