@@ -338,6 +338,7 @@ df35['Date'] = pd.to_datetime(df35['Date'])
 df36['Date'] = pd.to_datetime(df36['Date'])
 #df37['Date'] = pd.to_datetime(df37['Date'])
 
+# Concatenate the 'Date' columns from df and df2
 dates = pd.concat([df['Date'], df2['Date']])
 
 # Convert the dates to datetime objects and format as 'Month Year'
@@ -347,10 +348,10 @@ formatted_dates = pd.to_datetime(dates).dt.strftime('%B %Y').unique()
 def custom_sort(date):
     month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     month, year = date.split()
-    return month_order.index(month), int(year)
+    return int(year), month_order.index(month)
 
 # Sort the formatted dates using the custom sorting key function
-sorted_dates = sorted(formatted_dates, key=custom_sort)
+sorted_dates = sorted(formatted_dates, key=custom_sort, reverse=True)  # Reverse the sorting order
 
 # Get the current month and year
 current_month_year = pd.Timestamp.now().strftime('%B %Y')
@@ -358,9 +359,6 @@ current_month_year = pd.Timestamp.now().strftime('%B %Y')
 # Check if the current month is in the sorted_dates list, if not, append it
 if current_month_year not in sorted_dates:
     sorted_dates.append(current_month_year)
-
-# Sort the dates again after appending the current month
-sorted_dates = sorted(sorted_dates, key=custom_sort, reverse=True)   
 
 # Display the sorted dates in the selectbox
 default_month_filter = current_month_year
