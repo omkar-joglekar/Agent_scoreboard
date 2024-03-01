@@ -388,6 +388,11 @@ filtered_df_9 = df9[df9['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_10 = df10[df10['Date'].dt.strftime('%B %Y') == month_filter]
 #filtered_df_11 = df11[df11['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_12 = df12[df12['Date'].dt.strftime('%B %Y') == month_filter]
+if filtered_df_12.empty:
+    filtered_df_12 = pd.DataFrame({'Date': [], 'ccc_funded': []}) # Create an empty DataFrame with the required columns
+    filtered_df_12 = filtered_df_12.fillna(0)  # Fill NaN values with zero
+
+
 filtered_df_13 = df13[df13['Date'].dt.strftime('%B %Y') == month_filter]
 #filtered_df_14 = df14[df14['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_15 = df15[df15['Date'].dt.strftime('%B %Y') == month_filter]
