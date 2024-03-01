@@ -360,7 +360,7 @@ if current_month_year not in sorted_dates:
     sorted_dates.append(current_month_year)
 
 # Sort the dates again after appending the current month
-sorted_dates = sorted(sorted_dates, key=custom_sort)    
+sorted_dates = sorted(sorted_dates, key=custom_sort, reverse=True)   
 
 # Display the sorted dates in the selectbox
 default_month_filter = current_month_year
