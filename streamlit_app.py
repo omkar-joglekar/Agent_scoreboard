@@ -116,7 +116,7 @@ df9=pd.DataFrame(rows9)
 df9.columns = ["Total_DF", "Date"]
 df9['Total_DF'] = df9['Total_DF'].apply(lambda x: '{:,.0f}'.format(x))
 
-rows10 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Progressa' and stagename='Funded' group by DATE;")
+rows10 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where loan_provider__c='Progressa' and stagename='Funded' group by DATE;")
 df10 = pd.DataFrame(rows10)
 df10.columns = ["Prog_funded", "Date"]
 df10['Prog_funded'] = df10['Prog_funded'].astype(int)
@@ -126,12 +126,12 @@ df10['Prog_funded'] = df10['Prog_funded'].astype(int)
 #df11.columns = ["Lend_funded", "Date"]
 #df11['Lend_funded'] = df11['Lend_funded'].astype(int)
 
-rows12 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(closedate)=year(current_Date) and loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%' group by DATE")
+rows12 = run_query("select count(distinct id), TO_VARCHAR(to_date(closedate), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where loan_provider__c='Consumer Capital' and stagename='Funded' and lower(name) not like '%spring grad%' and lower(name) not like '%foundation grad%' group by DATE")
 df12 = pd.DataFrame(rows12)
 df12.columns = ["ccc_funded", "Date"]
 df12['ccc_funded'] = df12['ccc_funded'].fillna(0).astype(int)
 
-rows13 = run_query("select count(distinct id), TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where year(funding_date_new__c)=year(current_date) and loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded' group by DATE")
+rows13 = run_query("select count(distinct id), TO_VARCHAR(to_date(funding_date_new__c), 'YYYY-MM') AS DATE from RAW_SALESFORCE_PROD_DB.SALESFORCE_PROD_SCHEMA.OPPORTUNITY where loan_provider__c='Spring Financial' and test_record__c=FALSE and recordtypename__c='Personal Loan' and stagename='Funded' group by DATE")
 df13 = pd.DataFrame(rows13)
 df13.columns = ["evergreen_funded", "Date"]
 df13['evergreen_funded'] = df13['evergreen_funded'].astype(int)
