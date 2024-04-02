@@ -663,7 +663,7 @@ elif selected_option == "Fundies":
         st.subheader('Top Team 10 Agents')
         st.table()#filtered_df_34[["Rank","Agent Name", "Funded"]].head(10))
 
-    elif radio =='Team 11':
+   elif radio =='Team 11':
        with col3:
         st.subheader('Total FDN Funded')
         st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
