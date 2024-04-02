@@ -278,11 +278,11 @@ df36.columns += 1
 df36.columns = ["Rank","Agent Name", "Funded", "Date"]
 df36['Funded'] = df36['Funded'].astype(int)
 
-#rows37 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 11' group by Agent, Date;")
-#df37=pd.DataFrame(rows37)
-#df37.columns += 1
-#df37.columns = ["Rank","Agent Name", "Funded", "Date"]
-#df37['Funded'] = df37['Funded'].astype(int)
+rows37 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 11' group by Agent, Date;")
+df37=pd.DataFrame(rows37)
+df37.columns += 1
+df37.columns = ["Rank","Agent Name", "Funded", "Date"]
+df37['Funded'] = df37['Funded'].astype(int)
 
 rows38 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 11' group by Agent, Date;")
 df38=pd.DataFrame(rows38)
@@ -342,7 +342,7 @@ df33['Date'] = pd.to_datetime(df33['Date'])
 df34['Date'] = pd.to_datetime(df34['Date'])
 df35['Date'] = pd.to_datetime(df35['Date'])
 df36['Date'] = pd.to_datetime(df36['Date'])
-#df37['Date'] = pd.to_datetime(df37['Date'])
+df37['Date'] = pd.to_datetime(df37['Date'])
 df38['Date'] = pd.to_datetime(df38['Date'])
 
 # Concatenate the 'Date' columns from df and df2
@@ -419,7 +419,7 @@ filtered_df_33 = df33[df33['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_34 = df34[df34['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_35 = df35[df35['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_36 = df36[df36['Date'].dt.strftime('%B %Y') == month_filter]
-#filtered_df_37 = df37[df37['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_37 = df37[df37['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_38 = df38[df38['Date'].dt.strftime('%B %Y') == month_filter]
 
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
@@ -545,7 +545,7 @@ if selected_option == "EFS":
 
       with col2:
            st.subheader('Top Team 11 Agents')
-           st.table()#filtered_df_37[["Rank","Agent Name", "Funded"]].head(10))     
+           st.table(filtered_df_37[["Rank","Agent Name", "Funded"]].head(10))     
    
    else:
       with col1:
