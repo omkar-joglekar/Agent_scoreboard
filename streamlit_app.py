@@ -661,7 +661,7 @@ elif selected_option == "Fundies":
 
        with col4:
         st.subheader('Top Team 10 Agents')
-        st.table()#filtered_df_34[["Rank","Agent Name", "Funded"]].head(10))
+        st.table(filtered_df_36[["Rank","Agent Name", "Funded"]].head(10))
 
    elif radio =='Team 11':
        with col3:
