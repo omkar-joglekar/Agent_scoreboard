@@ -16,8 +16,9 @@ today = datetime.now()
 month = today.strftime("%B")
 year = today.year
 
-#Calculate next refresh time
-refresh_times = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00", "02:00", "04:00", "06:00"]
+
+# Define refresh times for every hour
+refresh_times = [f"{hour:02d}:00" for hour in range(24)]
 timezone = pytz.timezone('US/Pacific')
 
 current_time = dt.datetime.now(timezone).strftime("%H:%M")
