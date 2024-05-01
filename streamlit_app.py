@@ -350,16 +350,16 @@ df38['Date'] = pd.to_datetime(df38['Date'])
 dates = pd.concat([df['Date'], df2['Date']])
 
 # Convert the dates to datetime objects and format as 'Month Year'
-#
+formatted_dates = pd.to_datetime(dates).dt.strftime('%B %Y').unique()
 
 # Define a custom sorting key function
 def custom_sort(date):
-   return date.year, date.month
-    
-# Sort the formatted dates using the custom sorting key function
-sorted_dates = sorted(dates, key=custom_sort, reverse=True)  # Reverse the sorting order
+    month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    month, year = date.split()
+    return -month_order.index(month), -int(year)
 
-formatted_dates = [date.strftime('%B %Y') for date in sorted_dates]
+# Sort the formatted dates using the custom sorting key function
+sorted_dates = sorted(formatted_dates, key=custom_sort)#, reverse=True)  # Reverse the sorting order
 
 # Get the current month and year
 current_month_year = pd.Timestamp.now().strftime('%B %Y')
