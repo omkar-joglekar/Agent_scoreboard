@@ -356,7 +356,7 @@ formatted_dates = pd.to_datetime(dates).dt.strftime('%B %Y').unique()
 def custom_sort(date):
     month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     month, year = date.split()
-    return int(year), month_order.index(month)
+    return int(year), -month_order.index(month)
 
 # Sort the formatted dates using the custom sorting key function
 sorted_dates = sorted(formatted_dates, key=custom_sort, reverse=True)  # Reverse the sorting order
