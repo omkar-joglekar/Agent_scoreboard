@@ -362,7 +362,7 @@ def custom_sort(date):
 current_month_year = pd.Timestamp.now().strftime('%B %Y')
 
 # Check if the current month is in the sorted_dates list, if not, append it
-if current_month_year not in sorted_dates:
+if current_month_year not in formatted_dates:
     formatted_dates.append(current_month_year)
 
 # Sort the formatted dates using the custom sorting key function
