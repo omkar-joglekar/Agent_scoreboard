@@ -359,7 +359,7 @@ def custom_sort(date):
     return int(year), month_order.index(month)
 
 # Sort the formatted dates using the custom sorting key function
-sorted_dates = sorted(formatted_dates, key=custom_sort)#, #reverse=True)  # Reverse the sorting order
+sorted_dates = sorted(formatted_dates, key=custom_sort, reverse=True)  # Reverse the sorting order
 
 # Get the current month and year
 current_month_year = pd.Timestamp.now().strftime('%B %Y')
