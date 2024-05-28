@@ -291,17 +291,17 @@ df38.columns += 1
 df38.columns = ["Rank","Agent Name", "Funded", "Date"]
 df38['Funded'] = df38['Funded'].astype(int)
 
-rows39 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 12' group by Agent, Date;")
-df39=pd.DataFrame(rows39)
-df39.columns += 1
-df39.columns = ["Rank","Agent Name", "Funded", "Date"]
-df39['Funded'] = df39['Funded'].astype(int)
+#rows39 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='EFS' and Team='Team 12' group by Agent, Date;")
+#df39=pd.DataFrame(rows39)
+#df39.columns += 1
+#df39.columns = ["Rank","Agent Name", "Funded", "Date"]
+#df39['Funded'] = df39['Funded'].astype(int)
 
-rows40 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 12' group by Agent, Date;")
-df40=pd.DataFrame(rows40)
-df40.columns += 1
-df40.columns = ["Rank","Agent Name", "Funded", "Date"]
-df40['Funded'] = df39['Funded'].astype(int)
+#rows40 = run_query("select DENSE_RANK() OVER (PARTITION BY DATE ORDER BY sum(SP_F) DESC) AS RANK, Agent, sum(sp_f), DATE from SCOREBOARD_MAR2023 where type='FDN' and Team='Team 12' group by Agent, Date;")
+#df40=pd.DataFrame(rows40)
+#df40.columns += 1
+#df40.columns = ["Rank","Agent Name", "Funded", "Date"]
+#df40['Funded'] = df39['Funded'].astype(int)
 
 #markdown
 #hide_streamlit_style = """
@@ -357,8 +357,8 @@ df35['Date'] = pd.to_datetime(df35['Date'])
 df36['Date'] = pd.to_datetime(df36['Date'])
 df37['Date'] = pd.to_datetime(df37['Date'])
 df38['Date'] = pd.to_datetime(df38['Date'])
-df39['Date'] = pd.to_datetime(df39['Date'])
-df40['Date'] = pd.to_datetime(df40['Date'])
+#df39['Date'] = pd.to_datetime(df39['Date'])
+#df40['Date'] = pd.to_datetime(df40['Date'])
 
 # Concatenate the 'Date' columns from df and df2
 dates = pd.concat([df['Date'], df2['Date']])
@@ -436,8 +436,8 @@ filtered_df_35 = df35[df35['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_36 = df36[df36['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_37 = df37[df37['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_38 = df38[df38['Date'].dt.strftime('%B %Y') == month_filter]
-filtered_df_39 = df39[df39['Date'].dt.strftime('%B %Y') == month_filter]
-filtered_df_40 = df40[df40['Date'].dt.strftime('%B %Y') == month_filter]
+#filtered_df_39 = df39[df39['Date'].dt.strftime('%B %Y') == month_filter]
+#filtered_df_40 = df40[df40['Date'].dt.strftime('%B %Y') == month_filter]
 
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
@@ -564,16 +564,16 @@ if selected_option == "EFS":
            st.subheader('Top Team 11 Agents')
            st.table(filtered_df_37[["Rank","Agent Name", "Funded"]].head(10)) 
 
-   elif radio == 'Team 12':
-      with col1:
-           st.subheader('Total EFS Funded')
-           st.metric("label3",filtered_df_3['Total_EFS'].iloc[0], label_visibility="collapsed")
-           st.markdown(hide_table_row_index, unsafe_allow_html=True)
-           st.table(filtered_df_5[["Team", "Lead", "Funded"]])
+   #elif radio == 'Team 12':
+     # with col1:
+         #  st.subheader('Total EFS Funded')
+         #  st.metric("label3",filtered_df_3['Total_EFS'].iloc[0], label_visibility="collapsed")
+         #  st.markdown(hide_table_row_index, unsafe_allow_html=True)
+         #  st.table(filtered_df_5[["Team", "Lead", "Funded"]])
 
-      with col2:
-           st.subheader('Top Team 12 Agents')
-           st.table(filtered_df_39[["Rank","Agent Name", "Funded"]].head(10)) 
+      #with col2:
+          # st.subheader('Top Team 12 Agents')
+          # st.table(filtered_df_39[["Rank","Agent Name", "Funded"]].head(10)) 
    
    else:
       with col1:
@@ -702,16 +702,16 @@ elif selected_option == "Fundies":
         st.subheader('Top Team 11 Agents')
         st.table(filtered_df_38[["Rank","Agent Name", "Funded"]].head(10))
 
-   elif radio =='Team 12':
-       with col3:
-        st.subheader('Total FDN Funded')
-        st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
-        st.markdown(hide_table_row_index, unsafe_allow_html=True)
-        st.table(filtered_df_6[["Team", "Lead", "Funded"]])
+   #elif radio =='Team 12':
+     #  with col3:
+     #   st.subheader('Total FDN Funded')
+     #   st.metric("label2", filtered_df_4['Total_FDN'].iloc[0], label_visibility="collapsed")
+     #   st.markdown(hide_table_row_index, unsafe_allow_html=True)
+       # st.table(filtered_df_6[["Team", "Lead", "Funded"]])
 
-       with col4:
-        st.subheader('Top Team 12 Agents')
-        st.table(filtered_df_40[["Rank","Agent Name", "Funded"]].head(10))
+     #  with col4:
+     #   st.subheader('Top Team 12 Agents')
+     #   st.table(filtered_df_40[["Rank","Agent Name", "Funded"]].head(10))
    
    else:
        with col3:
