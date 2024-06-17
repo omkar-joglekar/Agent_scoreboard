@@ -436,8 +436,8 @@ filtered_df_35 = df35[df35['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_36 = df36[df36['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_37 = df37[df37['Date'].dt.strftime('%B %Y') == month_filter]
 filtered_df_38 = df38[df38['Date'].dt.strftime('%B %Y') == month_filter]
-#filtered_df_39 = df39[df39['Date'].dt.strftime('%B %Y') == month_filter]
-#filtered_df_40 = df40[df40['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_39 = df39[df39['Date'].dt.strftime('%B %Y') == month_filter]
+filtered_df_40 = df40[df40['Date'].dt.strftime('%B %Y') == month_filter]
 
 options = ["EFS", "Fundies", "CSR Declines", "Progressa & Lendful Funded","CCC & Evergreen Funded"]
 selected_option = st.selectbox("Select:", options) #label_visibility="collapsed"
